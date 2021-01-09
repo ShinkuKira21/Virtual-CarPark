@@ -11,8 +11,9 @@ void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards);
 
 int main()
 {	
-	CarPark* cp = new CarPark(1, 1, 1);
+	CarPark* cp = new CarPark(2, 1, 1);
 	Sign* sign;
+
 	std::vector<struct Card> cards;
 	int lengthCards = 0;
 	
@@ -28,7 +29,6 @@ int main()
 		else if (interactionBoard == 2)
 		{
 			SwipeCard(*cp->GetClass(), &cards);
-
 		}
 		else break;
 
@@ -47,7 +47,7 @@ void RegisterUserCard(int* aLength, std::vector<struct Card>* aCards)
 	if (*aLength == 0) aCards->at(0).membershipID = '0';
 	else aCards->at(*aLength).membershipID = std::to_string((int)func.TextToNumber(aCards->at(*aLength-1).membershipID) + 1);
 	aCards->at(*aLength).memberName = func.TextInput("Enter member name: ");
-	aCards->at(*aLength).membershipType = func.TextInput("Enter membership type (V|istor/S|taff): ");
+	aCards->at(*aLength).membershipType = func.TextInput("Enter membership type ([V|istor][S|taff]): ");
 	aCards->at(*aLength).expiryDate = func.TextInput("Enter expiry date (dd/mm/yy): ");
 
 	std::cout << "Card ID: " << aCards->at(*aLength).membershipID;
