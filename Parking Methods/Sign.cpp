@@ -2,13 +2,10 @@
 
 Sign::Sign(CarPark& carParkObj) : CarPark(carParkObj)
 {
-	
+	DisplayText();
 }
 
-Sign::~Sign()
-{
-
-}
+Sign::~Sign() { }
 
 std::string Sign::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {
@@ -38,4 +35,10 @@ std::string Sign::GetParkStatusMessage(int parkingSpace, std::string parkingSpac
 		default:
 			return "Error: Car Park is full.";
 	}
+}
+
+void Sign::DisplayText()
+{
+	std::cout << "\t\t\tCar Park | Message Board\n\n\t";
+	std::cout << GetParkStatusMessage() << std::endl << std::endl << std::endl << std::endl;
 }
