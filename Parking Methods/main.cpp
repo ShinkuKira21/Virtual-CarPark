@@ -12,11 +12,14 @@ void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards);
 int main()
 {	
 	CarPark* cp = new CarPark(1, 1, 1);
+	Sign* sign;
 	std::vector<struct Card> cards;
 	int lengthCards = 0;
 	
 	while (true)
 	{
+		sign = new Sign(*cp->GetClass());
+
 		int interactionBoard = (int)func.NumberInput("\t\t\tUser Interaction Menu\n\n1) Register User\t2) Swipe Card\n3) Exit\n\nYour Input: ");
 		
 		func.ClearSystem();

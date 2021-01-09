@@ -10,8 +10,9 @@ class Sign : private CarPark
 
 
 		// Public just for testing procedures
-		virtual std::string GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID) override;
+		virtual std::string GetParkStatusMessage(int parkingSpace = NULL, std::string parkingSpaceID = "") override;
+
 	private:
-		
+		void DisplayText();
 };
 
