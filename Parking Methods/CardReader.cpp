@@ -34,7 +34,6 @@ CardReader::~CardReader() { }
 
 std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {
-	std::cout << GetAvailabilityStatus();
 	if (parkingSpace == 0 && GetAvailabilityStatus() != 0) return "Proceed to " + parkingSpaceID;
 	if (parkingSpace == 1 && GetAvailabilityStatus() != 1) return "Proceed to " + parkingSpaceID;
 	if (parkingSpace == 2 && GetAvailabilityStatus() != 3) return "Proceed to " + parkingSpaceID;

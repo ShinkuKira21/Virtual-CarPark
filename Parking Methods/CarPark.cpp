@@ -73,8 +73,6 @@ std::string CarPark::AllocateParkingSpace(int parkingType)
 			}
 	}
 
-	DisplaySpaces();
-
 	return "";
 }
 
