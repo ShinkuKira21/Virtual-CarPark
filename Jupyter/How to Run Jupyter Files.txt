@@ -1,0 +1,11 @@
+Step 1: Go to https://jupyter.org/try
+
+Step 2: Click Try Classic Notebook.
+
+Step 3: File->Open.
+
+Step 4: Right hand side, press Upload.
+
+Step 5: Select the ipynb file.
+
+Step 6: Save changes and click the uploaded file, in order to see planning/problem solving.
