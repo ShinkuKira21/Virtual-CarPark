@@ -30,6 +30,9 @@
     <ClCompile Include="Sign.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sensors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Barrier.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sign.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
