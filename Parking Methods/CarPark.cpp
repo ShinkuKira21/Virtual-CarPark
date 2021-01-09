@@ -84,21 +84,21 @@ void CarPark::DeallocateParkingSpace()
 int CarPark::GetAvailabilityStatus()
 {
 	/* Code Identifiers and Meanings:
-	* Number: -1 - All Spaces are Empty (Correct)
-	* Number: -2 - General Spaces are Full (Correct)
-	* Number:  0 - General Spaces and Disability Spaces are Full
-	* Number:  1 - Disability Spaces are Full (Wrong)
-	* Number: -3 - All Spaces are Full
-	* Number: -4 - Child Spaces are Full
-	* Number: -5 - General Spaces and Child Spaces are Full
-	* Number: -2 - Disability and Child Spaces are Full
+	* Number: -15 - All Spaces are Empty
+	* Number: -30 - General Spaces are Full
+	* Number: -28 - General Spaces and Disability Spaces are Full
+	* Number: -13 - Disability Spaces are Full
+	* Number: -31 - All Spaces are Full
+	* Number: -18 - Child Spaces are Full
+	* Number: -33 - General Spaces and Child Spaces are Full
+	* Number: -16 - Disability and Child Spaces are Full
 	*/
 
 	// smarter to suggest which spaces are full
-	int spaceCount = -1;
+	int spaceCount = -15;
 
 	// availableGeneralSpaces are full
-	if (carPark->availableGeneralSpaces - carPark->usedGeneralSpaces == 0) spaceCount--; // if empty, add 1.
+	if (carPark->availableGeneralSpaces - carPark->usedGeneralSpaces == 0) spaceCount -= 15; // if empty, add 1.
 	if (carPark->availableDisabilitySpaces - carPark->usedDisabilitySpaces == 0) spaceCount += 2;
 	if (carPark->availableChildSpaces - carPark->usedChildSpaces == 0) spaceCount -= 3;
 

@@ -34,9 +34,9 @@ CardReader::~CardReader() { }
 
 std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {
-	if (parkingSpace == 0 && GetAvailabilityStatus() != 0) return "Proceed to " + parkingSpaceID;
-	if (parkingSpace == 1 && GetAvailabilityStatus() != 1) return "Proceed to " + parkingSpaceID;
-	if (parkingSpace == 2 && GetAvailabilityStatus() != 3) return "Proceed to " + parkingSpaceID;
+	if (parkingSpace == 0 && GetAvailabilityStatus() != -30) return "Proceed to " + parkingSpaceID;
+	if (parkingSpace == 1 && GetAvailabilityStatus() != -18) return "Proceed to " + parkingSpaceID;
+	if (parkingSpace == 2 && GetAvailabilityStatus() != -13) return "Proceed to " + parkingSpaceID;
 	return "Please exit the car park."; // could send them back to the selection.
 }
 
