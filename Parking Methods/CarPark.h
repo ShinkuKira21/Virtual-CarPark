@@ -35,7 +35,8 @@ class CarPark : public Functions
 
 		int GetAvailabilityStatus();
 		std::string GetParkingSpaceNumber();
-	
+		void CountAvailableSpaces();
+
 		// The message can be customised, 
 		// depending on where the message is displayed.
 		virtual std::string GetParkStatusMessage(int parkingSpace = NULL, std::string parkingSpaceID = "") 
@@ -59,5 +60,4 @@ class CarPark : public Functions
 		CarPark();
 		
 		void InitialiseParkingSlotIDs();
-		void CountAvailableSpaces();
 };

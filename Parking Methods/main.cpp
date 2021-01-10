@@ -2,9 +2,9 @@
 
 #include "CardReader.h"
 #include "Sign.h"
+
 //Enables input into the CarPark class and it's subclasses
 Functions func;
-
 
 void RegisterUserCard(int* lengthCards, std::vector<struct Card>* aCards);
 void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards);
@@ -71,6 +71,5 @@ void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards)
 		memID = std::to_string((int)func.NumberInput("Enter Membership ID: "));
 		cReader = new CardReader(cp, memID, aCards);
 	}
-		 
 	else cReader = new CardReader(cp);
 }

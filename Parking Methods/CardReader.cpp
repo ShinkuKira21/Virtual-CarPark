@@ -34,6 +34,7 @@ CardReader::~CardReader() { }
 
 std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {
+	CountAvailableSpaces(); // count available spaces before change
 	if (parkingSpace == 0 && GetAvailabilityStatus() != -30) return "Proceed to " + parkingSpaceID;
 	if (parkingSpace == 1 && GetAvailabilityStatus() != -18) return "Proceed to " + parkingSpaceID;
 	if (parkingSpace == 2 && GetAvailabilityStatus() != -13) return "Proceed to " + parkingSpaceID;
@@ -78,7 +79,6 @@ void CardReader::PaymentMethod(std::string membershipType)
 			std::cout << "Please wait..." << std::endl;
 			std::cout << "Accepted" << std::endl;
 		}
-
 	}
 
 	PauseSystem();
