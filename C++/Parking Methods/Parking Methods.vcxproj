@@ -145,6 +145,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sensors.cpp" />
     <ClCompile Include="Sign.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Barrier.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="CarPark.h" />
     <ClInclude Include="Sensors.h" />
     <ClInclude Include="Sign.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
