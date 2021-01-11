@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Library/Functions.h"
+#include "Vector.h"
 
 class CarPark : public Functions
 {
