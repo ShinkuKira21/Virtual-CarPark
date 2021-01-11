@@ -12,7 +12,7 @@ std::string Sign::GetParkStatusMessage(int parkingSpace, std::string parkingSpac
 	switch (GetAvailabilityStatus())
 	{
 		case -15:
-			return "All Spaces are Empty.";
+			return "Available Spaces";
 
 		case -30:
 			return "General Spaces are Full.";

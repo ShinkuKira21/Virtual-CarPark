@@ -21,7 +21,6 @@ class CarPark : public Functions
 		const std::string parkingSpaceIDs[3] = { "CG-PS-", "CH-PS-", "CD-PS-" };
 		std::string* parkingSpaceID;
 		std::string* parkingSpaceStatus;
-		char* allocatedSpaces;
 
 	public:
 		CarPark(CarPark& cPark);
@@ -31,11 +30,12 @@ class CarPark : public Functions
 		class CarPark* GetClass();
 
 		std::string AllocateParkingSpace(int parkingType);
-		void DeallocateParkingSpace();
+		void DeallocateParkingSpace(std::string parkingSpaceID);
 
 		int GetAvailabilityStatus();
 		std::string GetParkingSpaceNumber();
-	
+		void CountAvailableSpaces();
+
 		// The message can be customised, 
 		// depending on where the message is displayed.
 		virtual std::string GetParkStatusMessage(int parkingSpace = NULL, std::string parkingSpaceID = "") 
@@ -59,5 +59,4 @@ class CarPark : public Functions
 		CarPark();
 		
 		void InitialiseParkingSlotIDs();
-		void CountAvailableSpaces();
 };

@@ -19,8 +19,6 @@ CarPark::CarPark(int gSpaces, int dSpaces, int cSpaces)
 	
 	carPark->totalSpaces = carPark->availableGeneralSpaces + carPark->availableChildSpaces + carPark->availableDisabilitySpaces;
 
-	carPark->usedGeneralSpaces = carPark->usedChildSpaces = carPark->usedDisabilitySpaces = 0;
-
 	InitialiseParkingSlotIDs();
 }
 
@@ -36,8 +34,6 @@ std::string CarPark::AllocateParkingSpace(int parkingType)
 {
 	int maxChildSpace = carPark->availableGeneralSpaces + carPark->availableChildSpaces;
 	int maxDisabledSpace = maxChildSpace + carPark->availableDisabilitySpaces;
-
-	CountAvailableSpaces(); // count available spaces before change
 
 	// Standard
 	if (parkingType == 0)
@@ -76,9 +72,15 @@ std::string CarPark::AllocateParkingSpace(int parkingType)
 	return "";
 }
 
-void CarPark::DeallocateParkingSpace()
+void CarPark::DeallocateParkingSpace(std::string argParkingSpaceID)
 {
-
+	// Double Check !! IMPORTANT !!
+	for (int i = 0; i < carPark->totalSpaces; i++)
+		if (argParkingSpaceID == carPark->parkingSpaceID[i])
+		{
+			if (carPark->parkingSpaceStatus[i] != "Empty") carPark->parkingSpaceStatus[i] = "Empty";
+			else std::cout << "Parking space already empty!" << std::endl;
+		}
 }
 
 int CarPark::GetAvailabilityStatus()
@@ -140,6 +142,8 @@ void CarPark::CountAvailableSpaces()
 {
 	int maxChildSpace = carPark->availableGeneralSpaces + carPark->availableChildSpaces;
 	int maxDisabledSpace = maxChildSpace + carPark->availableDisabilitySpaces;
+
+	carPark->usedGeneralSpaces = carPark->usedChildSpaces = carPark->usedDisabilitySpaces = 0;
 
 	for (int i = 0; i < carPark->availableGeneralSpaces; i++)
 		if (carPark->parkingSpaceStatus[i] == "Taken")
