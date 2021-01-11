@@ -11,6 +11,8 @@ class CarPark : public Functions
 		// reuse the same obj for different child classes?
 		// not sure if there's a better way...
 		CarPark* carPark;
+
+
 		int totalSpaces;
 
 		// Defaults
@@ -44,7 +46,6 @@ class CarPark : public Functions
 			return "Error: Car Park is full.";
 		}
 
-		//Debugging Area
 		virtual void DisplaySpaces()
 		{
 			for (int i = 0; i < carPark->totalSpaces; i++)
