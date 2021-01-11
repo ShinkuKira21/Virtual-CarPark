@@ -12,6 +12,7 @@ void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards);
 int main()
 {	
 	CarPark* cp = new CarPark(2, 1, 1);
+	cp->SetLocation(*new Vector(35, -25.35, 45));
 	Sign* sign;
 
 	std::vector<struct Card> cards;
@@ -20,6 +21,7 @@ int main()
 	while (true)
 	{
 		sign = new Sign(*cp->GetClass());
+		sign->SetLocation(*new Vector(2.50, 2.50, 2.50));
 
 		int interactionBoard = (int)func.NumberInput("\t\t\tUser Interaction Menu\n\n1) Register User\t2) Swipe Card\n3) Exit\n\nYour Input: ");
 		

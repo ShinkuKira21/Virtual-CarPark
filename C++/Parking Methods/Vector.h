@@ -7,16 +7,22 @@ class Vector
 		float x, y, z;
 
 	public:
-		Vector(int, int, int);
+		Vector(float x, float y, float z);
 		Vector();
 		~Vector();
 
-		void SetVector(int, int, int);
-		void Scale(int scaleBy);	
+		void SetVector(float x, float y, float z);
+		void Scale(float scaleBy);	
 		void Add(Vector& aVec);
 		void Subtraction(Vector& aVec);
 
-		int GetVector(int selector);
+		float GetVector(int selector);
 		float GetDotProduct(Vector& aVec);
+
+		virtual void SetLocation(Vector& vec)
+		{
+			SetVector(vec.GetVector(0), vec.GetVector(1), vec.GetVector(2));
+		}
+
 };
 
