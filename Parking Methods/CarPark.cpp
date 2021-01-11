@@ -72,9 +72,15 @@ std::string CarPark::AllocateParkingSpace(int parkingType)
 	return "";
 }
 
-void CarPark::DeallocateParkingSpace()
+void CarPark::DeallocateParkingSpace(std::string argParkingSpaceID)
 {
-
+	// Double Check !! IMPORTANT !!
+	for (int i = 0; i < carPark->totalSpaces; i++)
+		if (argParkingSpaceID == carPark->parkingSpaceID[i])
+		{
+			if (carPark->parkingSpaceStatus[i] != "Empty") carPark->parkingSpaceStatus[i] = "Empty";
+			else std::cout << "Parking space already empty!" << std::endl;
+		}
 }
 
 int CarPark::GetAvailabilityStatus()

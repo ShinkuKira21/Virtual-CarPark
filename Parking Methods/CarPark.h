@@ -21,7 +21,6 @@ class CarPark : public Functions
 		const std::string parkingSpaceIDs[3] = { "CG-PS-", "CH-PS-", "CD-PS-" };
 		std::string* parkingSpaceID;
 		std::string* parkingSpaceStatus;
-		char* allocatedSpaces;
 
 	public:
 		CarPark(CarPark& cPark);
@@ -31,7 +30,7 @@ class CarPark : public Functions
 		class CarPark* GetClass();
 
 		std::string AllocateParkingSpace(int parkingType);
-		void DeallocateParkingSpace();
+		void DeallocateParkingSpace(std::string parkingSpaceID);
 
 		int GetAvailabilityStatus();
 		std::string GetParkingSpaceNumber();
