@@ -4,6 +4,8 @@ Barrier::Barrier(CarPark& carParkObj) : CarPark(carParkObj) { SetState(false); }
 
 Barrier::~Barrier() { }
 
+void Barrier::SetLocation(Vector& vec) {}
+
 void Barrier::SetState(bool state) { bBarrierStatus = state; }
 
 void Barrier::DisplayState() 

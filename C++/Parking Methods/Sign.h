@@ -11,7 +11,7 @@ class Sign : private CarPark
 
 		virtual std::string GetParkStatusMessage(int parkingSpace = NULL, std::string parkingSpaceID = "") override;
 
-		virtual void SetLocation(Vector& vec) override;
+		virtual void SetLocation(Vector& vec);
 
 	private:
 		void DisplayText();

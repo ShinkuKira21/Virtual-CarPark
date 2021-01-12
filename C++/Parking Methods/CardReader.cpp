@@ -38,6 +38,9 @@ void CardReader::BarrierSetup(CarPark& carParkObj)
 {
 	entranceBarrier = new Barrier(carParkObj);
 	exitBarrier = new Barrier(carParkObj);
+
+	entranceBarrier->SetLocation(*new Vector(1.20f, 1.15f, 2.f));
+	exitBarrier->SetLocation(*new Vector(20.f, 20.15f, 2.f));
 }
 
 std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
