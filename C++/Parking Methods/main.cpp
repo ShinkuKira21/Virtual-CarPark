@@ -2,7 +2,7 @@
 
 #include "CardReader.h"
 #include "Sign.h"
-
+#include "Barrier.h"
 //Enables input into the CarPark class and it's subclasses
 Functions func;
 
@@ -12,7 +12,7 @@ void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards);
 int main()
 {	
 	CarPark* cp = new CarPark(2, 1, 1);
-	cp->SetLocation(*new Vector(35, -25.35, 45));
+	cp->SetLocation(*new Vector(35.f, -25.35f, 45.f));
 	Sign* sign;
 
 	std::vector<struct Card> cards;
@@ -21,7 +21,7 @@ int main()
 	while (true)
 	{
 		sign = new Sign(*cp->GetClass());
-		sign->SetLocation(*new Vector(2.50, 2.50, 2.50));
+		sign->SetLocation(*new Vector(2.50f, 2.50f, 2.50f));
 
 		int interactionBoard = (int)func.NumberInput("\t\t\tUser Interaction Menu\n\n1) Register User\t2) Swipe Card\n3) Exit\n\nYour Input: ");
 		

@@ -1,11 +1,17 @@
 #include "Barrier.h"
 
-Barrier::Barrier(CarPark& carParkObj) : CarPark(carParkObj)
-{
+Barrier::Barrier(CarPark& carParkObj) : CarPark(carParkObj) { SetState(false); }
 
-}
+Barrier::~Barrier() { }
 
-Barrier::~Barrier()
-{
+void Barrier::SetLocation(Vector& vec) {}
 
+void Barrier::SetState(bool state) { bBarrierStatus = state; }
+
+void Barrier::DisplayState() 
+{ 
+	if (bBarrierStatus)
+		std::cout << "Barrier is open!\n";
+	else
+		std::cout << "Barrier is closed!\n";
 }
