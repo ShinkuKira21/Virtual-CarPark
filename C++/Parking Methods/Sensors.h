@@ -6,6 +6,10 @@ class Sensor : private CarPark
 	protected:
 
 	public:
+		Sensor(CarPark& carParkObj);
+		~Sensor();
+
+		virtual void SetLocation(Vector& vec);
 
 	private:
 

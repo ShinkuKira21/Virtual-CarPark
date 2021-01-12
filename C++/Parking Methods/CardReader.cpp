@@ -5,6 +5,8 @@ CardReader::CardReader(CarPark& carParkObj, std::string membershipID, std::vecto
 {
 	BarrierSetup(carParkObj);
 
+	// Sets CardReader::SetLocation virtual class
+	this->SetLocation(*new Vector(2.4f, 20.5, -20.f)); // shown different ways to call a virtual
 	std::string errorMsg = "Invalid Card";
 
 	if (card == nullptr)
@@ -42,6 +44,8 @@ void CardReader::BarrierSetup(CarPark& carParkObj)
 	entranceBarrier->SetLocation(*new Vector(1.20f, 1.15f, 2.f));
 	exitBarrier->SetLocation(*new Vector(20.f, 20.15f, 2.f));
 }
+
+void CardReader::SetLocation(Vector& vec) { }
 
 std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {

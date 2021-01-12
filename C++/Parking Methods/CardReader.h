@@ -13,6 +13,7 @@ class CardReader : private CarPark
 		~CardReader();
 
 	private:
+		virtual void SetLocation(Vector& vec);
 		virtual std::string GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID) override;
 
 		void BarrierSetup(CarPark& carParkObj);
