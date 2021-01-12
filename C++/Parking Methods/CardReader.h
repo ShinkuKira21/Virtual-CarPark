@@ -17,7 +17,7 @@ class CardReader : private CarPark
 
 		void BarrierSetup(CarPark& carParkObj);
 		void PaymentMethod(std::string membershipType = "");
-		void ParkingMethod();
+		void ParkingMethod();	
 };
 
 // Card could link to the database (via the membershipID)
