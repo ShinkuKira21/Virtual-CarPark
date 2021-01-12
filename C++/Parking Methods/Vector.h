@@ -12,6 +12,10 @@ class Vector
 		~Vector();
 
 		void SetVector(float x, float y, float z);
+		Vector(float, float, float);
+		Vector();
+		~Vector();
+		
 		void Scale(float scaleBy);	
 		void Add(Vector& aVec);
 		void Subtraction(Vector& aVec);
