@@ -5,7 +5,7 @@ Vector::Vector()
 	x=y=z=0;
 }
 
-Vector::Vector(int aX, int aY, int aZ)
+Vector::Vector(float aX, float aY, float aZ)
 {
 	x = aX;
 	y = aY;
@@ -14,14 +14,14 @@ Vector::Vector(int aX, int aY, int aZ)
 
 Vector::~Vector() { }
 
-void Vector::SetVector(int aX, int aY, int aZ)
+void Vector::SetVector(float aX, float aY, float aZ)
 {
 	x = aX;
 	y = aY;
 	z = aZ;
 }
 
-void Vector::Scale(int s)
+void Vector::Scale(float s)
 {
 	x = s * x;
 	y = s * y;
@@ -42,7 +42,7 @@ void Vector::Subtraction(Vector& aVec)
 	z -= aVec.GetVector(2);
 }
 
-int Vector::GetVector(int value)
+float Vector::GetVector(int value)
 {
 	if (value == 0) return x;
 	else if (value == 1) return y;

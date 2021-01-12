@@ -2,7 +2,7 @@
 #include "../../Library/Functions.h"
 #include "Vector.h"
 
-class CarPark : public Functions
+class CarPark : public Functions, protected Vector
 {
 	// this-> current class
 	// carPark-> sub obj class
@@ -12,7 +12,6 @@ class CarPark : public Functions
 		// reuse the same obj for different child classes?
 		// not sure if there's a better way...
 		CarPark* carPark;
-
 
 		int totalSpaces;
 
@@ -38,6 +37,8 @@ class CarPark : public Functions
 		int GetAvailabilityStatus();
 		std::string GetParkingSpaceNumber();
 		void CountAvailableSpaces();
+
+		virtual void SetLocation(Vector& vec) override;
 
 		// The message can be customised, 
 		// depending on where the message is displayed.
