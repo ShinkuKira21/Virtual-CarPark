@@ -37,6 +37,8 @@ std::string Sign::GetParkStatusMessage(int parkingSpace, std::string parkingSpac
 	}
 }
 
+void Sign::SetLocation(Vector& vec) { }
+
 void Sign::DisplayText()
 {
 	std::cout << "\t\t\tCar Park | Message Board\n\n\t";

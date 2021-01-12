@@ -1,6 +1,7 @@
 #pragma once
 #include "CarPark.h"
 #include "Barrier.h"
+
 class CardReader : private CarPark
 {
 	protected:
@@ -18,7 +19,6 @@ class CardReader : private CarPark
 		void PaymentMethod(std::string membershipType = "");
 		void ParkingMethod();	
 };
-
 
 // Card could link to the database (via the membershipID)
 struct Card

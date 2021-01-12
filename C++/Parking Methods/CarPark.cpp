@@ -3,7 +3,7 @@
 // Default Constructor
 CarPark::CarPark() { }
 
-CarPark::CarPark(CarPark& cPark) 
+CarPark::CarPark(CarPark& cPark)
 {
 	// copy existing obj to current obj
 	carPark = &cPark;
@@ -29,6 +29,11 @@ CarPark::~CarPark()
 
 // returns carPark sub obj
 class CarPark* CarPark::GetClass() { return carPark; }
+
+void CarPark::SetLocation(Vector& vec)
+{
+	carPark->SetVector(vec.GetVector(0), vec.GetVector(1), vec.GetVector(2));
+}
 
 std::string CarPark::AllocateParkingSpace(int parkingType)
 {
@@ -99,10 +104,12 @@ int CarPark::GetAvailabilityStatus()
 	// smarter to suggest which spaces are full
 	int spaceCount = -15;
 
-	// availableGeneralSpaces are full
+	// availableGeneralSpaces are full1
 	if (carPark->availableGeneralSpaces - carPark->usedGeneralSpaces == 0) spaceCount -= 15; // if empty, add 1.
 	if (carPark->availableDisabilitySpaces - carPark->usedDisabilitySpaces == 0) spaceCount += 2;
 	if (carPark->availableChildSpaces - carPark->usedChildSpaces == 0) spaceCount -= 3;
+	
+	CountAvailableSpaces(); // count available spaces before change
 
 	return spaceCount; // else turn true.
 }

@@ -38,15 +38,26 @@ void CardReader::BarrierSetup(CarPark& carParkObj)
 {
 	entranceBarrier = new Barrier(carParkObj);
 	exitBarrier = new Barrier(carParkObj);
+
+	entranceBarrier->SetLocation(*new Vector(1.20f, 1.15f, 2.f));
+	exitBarrier->SetLocation(*new Vector(20.f, 20.15f, 2.f));
 }
 
 std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {
-	CountAvailableSpaces(); // count available spaces before change
-	if (parkingSpace == 0 && GetAvailabilityStatus() != -30) return "Proceed to " + parkingSpaceID;
-	if (parkingSpace == 1 && GetAvailabilityStatus() != -18) return "Proceed to " + parkingSpaceID;
-	if (parkingSpace == 2 && GetAvailabilityStatus() != -13) return "Proceed to " + parkingSpaceID;
+	int availabilityStatus = GetAvailabilityStatus();
+
+	// only continue if car park is not full
+	if (availabilityStatus != -31)
+	{
+		if (parkingSpace == 0 && availabilityStatus != -30) return "Proceed to " + parkingSpaceID;
+		if (parkingSpace == 1 && availabilityStatus != -18) return "Proceed to " + parkingSpaceID;
+		if (parkingSpace == 2 && availabilityStatus != -13) return "Proceed to " + parkingSpaceID;
+	}
+		
 	return "Please exit the car park."; // could send them back to the selection.
+
+	DisplaySpaces();
 }
 
 void CardReader::PaymentMethod(std::string membershipType)
@@ -95,6 +106,8 @@ void CardReader::PaymentMethod(std::string membershipType)
 
 void CardReader::ParkingMethod()
 {
+	DisplaySpaces();
+
 	int menu;
 	menu = (int)NumberInput("\t\t\tUser Interaction Menu\n\nAny Special Places Required n(0/1)y: ");
 
