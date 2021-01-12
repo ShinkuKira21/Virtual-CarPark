@@ -1,9 +1,6 @@
 #include "Barrier.h"
 
-Barrier::Barrier(CarPark& carParkObj, bool state) : CarPark(carParkObj)
-{
-	SetState(state);
-}
+Barrier::Barrier(CarPark& carParkObj) : CarPark(carParkObj) { SetState(false); }
 
 Barrier::~Barrier() { }
 

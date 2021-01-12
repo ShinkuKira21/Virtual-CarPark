@@ -3,6 +3,8 @@
 // Card Memberships
 CardReader::CardReader(CarPark& carParkObj, std::string membershipID, std::vector<Card>* card) : CarPark(carParkObj)
 {
+	BarrierSetup(carParkObj);
+
 	std::string errorMsg = "Invalid Card";
 
 	if (card == nullptr)
@@ -31,6 +33,12 @@ CardReader::CardReader(CarPark& carParkObj, std::string membershipID, std::vecto
 }
 
 CardReader::~CardReader() { }
+
+void CardReader::BarrierSetup(CarPark& carParkObj)
+{
+	entranceBarrier = new Barrier(carParkObj);
+	exitBarrier = new Barrier(carParkObj);
+}
 
 std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {

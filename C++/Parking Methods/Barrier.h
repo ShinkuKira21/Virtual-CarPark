@@ -7,7 +7,7 @@ class Barrier : private CarPark
 		bool bBarrierStatus;
 
 	public:
-		Barrier(CarPark& carParkObj, bool state);
+		Barrier(CarPark& carParkObj);
 		~Barrier();
 
 	private:
