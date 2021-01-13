@@ -16,13 +16,14 @@ class CardReader : private CarPark
 		CardReader(CarPark& carParkObj, std::string membershipID = "", std::vector<struct Card>* card = nullptr);
 		~CardReader();
 
+		void ActivateSensor(float vehicleWeight, bool inOut);
+
 	private:
 		virtual void SetLocation(Vector& vec);
 		virtual std::string GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID) override;
 
 		void BarrierSetup(CarPark& carParkObj);
 		void SensorSetup(CarPark& carParkObj);
-		void ActivateSensor(float vehicleWeight, bool inOut);
 
 		void PaymentMethod(std::string membershipType = "");
 		void ParkingMethod();	
