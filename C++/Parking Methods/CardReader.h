@@ -13,10 +13,8 @@ class CardReader : private CarPark
 		class Sensor* exitSensor;
 
 	public:
-		CardReader(CarPark& carParkObj, std::string membershipID = "", std::vector<struct Card>* card = nullptr);
+		CardReader(CarPark& carParkObj, std::string membershipID = "", std::vector<struct Card>* card = nullptr, int mode = 1);
 		~CardReader();
-
-		void ActivateSensor(float vehicleWeight, bool inOut);
 
 	private:
 		virtual void SetLocation(Vector& vec);
@@ -24,9 +22,14 @@ class CardReader : private CarPark
 
 		void BarrierSetup(CarPark& carParkObj);
 		void SensorSetup(CarPark& carParkObj);
+		void ActivateSensor(float vehicleWeight, bool inOut);
 
-		void PaymentMethod(std::string membershipType = "");
-		void ParkingMethod();	
+		void VehicleIncrement(std::string membershipID, std::vector<Card>* card);
+		void VehicleDecrement();
+
+		bool UserInterface(std::string membershipID, std::vector<Card>* card);
+		bool PaymentMethod(std::string membershipType = "");
+		void ParkingMethod();
 };
 
 // Card could link to the database (via the membershipID)

@@ -1,35 +1,16 @@
 #include "CardReader.h"
 
 // Card Memberships
-CardReader::CardReader(CarPark& carParkObj, std::string membershipID, std::vector<Card>* card) : CarPark(carParkObj)
+CardReader::CardReader(CarPark& carParkObj, std::string membershipID, std::vector<Card>* card, int mode) : CarPark(carParkObj)
 {
 	BarrierSetup(carParkObj);
 	SensorSetup(carParkObj);
 
 	// Sets CardReader::SetLocation virtual class
 	this->SetLocation(*new Vector(2.4f, 20.5, -20.f)); // shown different ways to call a virtual
-	std::string errorMsg = "Invalid Card";
 
-	if (card == nullptr)
-	{
-		PaymentMethod();
-		errorMsg = "";
-	}
-	else
-	{
-		for (int i = 0; i < card->size(); i++)
-			if (card->at(i).membershipID == membershipID)
-			{
-				PaymentMethod(card->at(i).membershipType);
-				errorMsg = "";
-			}
-	}
-		
-			
-	std::cout << errorMsg << std::endl;
-
-	if(errorMsg == "")
-		ParkingMethod();
+	if (mode == 1) VehicleIncrement(membershipID, card);
+	else VehicleDecrement();
 
 	PauseSystem();
 	ClearSystem();
@@ -62,6 +43,31 @@ void CardReader::ActivateSensor(float vehicleWeight, bool inOut)
 	else exitSensor->ActivateTrigger(vehicleWeight);
 }
 
+void CardReader::VehicleIncrement(std::string membershipID, std::vector<Card>* card)
+{
+	// Entrance sensor
+	ActivateSensor((float)NumberInput("Enter car weight: "), true);
+	ClearSystem();
+
+	if (entranceSensor->GetStatus())
+	{
+		UserInterface(membershipID, card);
+	}
+
+
+	else
+	{
+		std::cout << "\t\t\tUser Interaction Menu\n\n";
+		std::cout << "\tNo car detected\n\n";
+		std::cout << "\t\t\t";
+		PauseSystem();
+	}
+}
+
+void CardReader::VehicleDecrement()
+{
+}
+
 void CardReader::SetLocation(Vector& vec) { }
 
 std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
@@ -81,12 +87,45 @@ std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parki
 	DisplaySpaces();
 }
 
-void CardReader::PaymentMethod(std::string membershipType)
+bool CardReader::UserInterface(std::string membershipID, std::vector<Card>* card)
+{
+	std::string errorMsg = "Invalid Card";
+	bool bPaymentStatus = false;
+
+	if (card == nullptr)
+	{
+		bPaymentStatus = PaymentMethod();
+		errorMsg = "";
+	}
+	else
+	{
+		for (int i = 0; i < card->size(); i++)
+			if (card->at(i).membershipID == membershipID)
+			{
+				bPaymentStatus = PaymentMethod(card->at(i).membershipType);
+				errorMsg = "";
+			}
+	}
+
+
+	std::cout << errorMsg << std::endl;
+
+	if (errorMsg == "")
+		ParkingMethod();
+
+	return bPaymentStatus;
+}
+
+bool CardReader::PaymentMethod(std::string membershipType)
 {
 	int menu;
+	bool bPaymentStatus = false;
 
 	if (membershipType == "V" || membershipType == "v")
+	{
 		std::cout << "Card Accepted." << std::endl;
+		bPaymentStatus = true;
+	}
 
 	else
 	{
@@ -112,17 +151,21 @@ void CardReader::PaymentMethod(std::string membershipType)
 			ClearSystem();
 
 			std::cout << "Accepted" << std::endl;
+			bPaymentStatus = true;
 		}
 
 		else
 		{
 			std::cout << "Please wait..." << std::endl;
 			std::cout << "Accepted" << std::endl;
+			bPaymentStatus = true;
 		}
 	}
 
 	PauseSystem();
 	ClearSystem();
+
+	return bPaymentStatus;
 }
 
 void CardReader::ParkingMethod()
