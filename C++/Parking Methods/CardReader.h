@@ -13,7 +13,7 @@ class CardReader : private CarPark
 		class Sensor* exitSensor;
 
 	public:
-		CardReader(CarPark& carParkObj, std::string membershipID = "", std::vector<struct Card>* card = nullptr, int mode = 1);
+		CardReader(CarPark& carParkObj, int mode, std::string membershipID = "", std::vector<struct Card>* card = nullptr);
 		~CardReader();
 
 	private:
