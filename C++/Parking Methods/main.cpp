@@ -13,6 +13,7 @@ int main()
 {	
 	CarPark* cp = new CarPark(2, 1, 1);
 	cp->SetLocation(*new Vector(35.f, -25.35f, 45.f));
+
 	Sign* sign;
 
 	std::vector<struct Card> cards;
@@ -23,15 +24,13 @@ int main()
 		sign = new Sign(*cp->GetClass());
 		sign->SetLocation(*new Vector(2.50f, 2.50f, 2.50f));
 
-		int interactionBoard = (int)func.NumberInput("\t\t\tUser Interaction Menu\n\n1) Register User\t2) Swipe Card\n3) Exit\n\nYour Input: ");
+		int interactionBoard = (int)func.NumberInput("\t\t\tUser Interaction Menu\n\n1) Register User\t2) Swipe Card\n3) Drive Away\t\t4) Exit\n\nYour Input: ");
 		
 		func.ClearSystem();
 
-		if (interactionBoard == 1) { RegisterUserCard(&lengthCards, &cards); }
-		else if (interactionBoard == 2)
-		{
-			SwipeCard(*cp->GetClass(), &cards);
-		}
+		if (interactionBoard == 1) RegisterUserCard(&lengthCards, &cards);
+		else if (interactionBoard == 2) SwipeCard(*cp->GetClass(), &cards);
+		else if (interactionBoard == 3) new CardReader(*cp->GetClass(), 0);
 		else break;
 
 		func.ClearSystem();
@@ -71,7 +70,7 @@ void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards)
 	if (bCardAvailable)
 	{
 		memID = std::to_string((int)func.NumberInput("Enter Membership ID: "));
-		cReader = new CardReader(cp, memID, aCards);
+		cReader = new CardReader(cp, 1, memID, aCards);
 	}
-	else cReader = new CardReader(cp);
+	else cReader = new CardReader(cp, 1);
 }

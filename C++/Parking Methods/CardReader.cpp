@@ -1,7 +1,7 @@
 #include "CardReader.h"
 
 // Card Memberships
-CardReader::CardReader(CarPark& carParkObj, std::string membershipID, std::vector<Card>* card, int mode) : CarPark(carParkObj)
+CardReader::CardReader(CarPark& carParkObj, int mode, std::string membershipID, std::vector<Card>* card) : CarPark(carParkObj)
 {
 	BarrierSetup(carParkObj);
 	SensorSetup(carParkObj);
@@ -73,6 +73,8 @@ void CardReader::VehicleIncrement(std::string membershipID, std::vector<Card>* c
 
 void CardReader::VehicleDecrement()
 {
+	DisplaySpaces();
+	DeallocateParkingSpace(TextInput("Enter Parking Space ID: "));
 }
 
 void CardReader::SetLocation(Vector& vec) { }
