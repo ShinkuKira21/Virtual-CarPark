@@ -8,6 +8,8 @@ void Barrier::SetLocation(Vector& vec) {}
 
 void Barrier::SetState(bool state) { bBarrierStatus = state; }
 
+bool Barrier::GetState() { return bBarrierStatus; }
+
 void Barrier::DisplayState() 
 { 
 	if (bBarrierStatus)

@@ -49,18 +49,25 @@ void CardReader::VehicleIncrement(std::string membershipID, std::vector<Card>* c
 	ActivateSensor((float)NumberInput("Enter car weight: "), true);
 	ClearSystem();
 
-	if (entranceSensor->GetStatus())
-	{
-		UserInterface(membershipID, card);
-	}
-
-
-	else
+	if (!entranceSensor->GetStatus())
 	{
 		std::cout << "\t\t\tUser Interaction Menu\n\n";
-		std::cout << "\tNo car detected\n\n";
-		std::cout << "\t\t\t";
+		std::cout << "No car detected | Override Allowed\n\n";
+
 		PauseSystem();
+		ClearSystem();
+	}
+	
+	if (UserInterface(membershipID, card))
+	{
+		entranceBarrier->SetState(true); // opens entrance barrier
+		if (entranceBarrier->GetState()) std::cout << "Barrier Open: Please drive through!\n";
+
+		PauseSystem();
+		ClearSystem();
+
+		entranceBarrier->SetState(false); // closes entrance barrier
+		if (!entranceBarrier->GetState()) std::cout << "Barrier Closed\n";
 	}
 }
 
