@@ -1,12 +1,16 @@
 #pragma once
 #include "CarPark.h"
 #include "Barrier.h"
+#include "Sensors.h"
 
 class CardReader : private CarPark
 {
 	protected:
 		class Barrier* entranceBarrier;
 		class Barrier* exitBarrier;
+
+		class Sensor* entranceSensor;
+		class Sensor* exitSensor;
 
 	public:
 		CardReader(CarPark& carParkObj, std::string membershipID = "", std::vector<struct Card>* card = nullptr);
@@ -17,6 +21,9 @@ class CardReader : private CarPark
 		virtual std::string GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID) override;
 
 		void BarrierSetup(CarPark& carParkObj);
+		void SensorSetup(CarPark& carParkObj);
+		void ActivateSensor(float vehicleWeight, bool inOut);
+
 		void PaymentMethod(std::string membershipType = "");
 		void ParkingMethod();	
 };

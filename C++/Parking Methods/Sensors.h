@@ -4,13 +4,14 @@
 class Sensor : private CarPark
 {
 	protected:
+		bool bIsPressed; float triggerWeight;
 
 	public:
-		Sensor(CarPark& carParkObj);
+		Sensor(CarPark& carParkObj, float aTriggerWeight);
 		~Sensor();
 
+		bool GetStatus();
+		void ActivateTrigger(float carWeight);
+
 		virtual void SetLocation(Vector& vec);
-
-	private:
-
 };

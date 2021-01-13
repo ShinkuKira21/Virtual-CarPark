@@ -4,6 +4,7 @@
 CardReader::CardReader(CarPark& carParkObj, std::string membershipID, std::vector<Card>* card) : CarPark(carParkObj)
 {
 	BarrierSetup(carParkObj);
+	SensorSetup(carParkObj);
 
 	// Sets CardReader::SetLocation virtual class
 	this->SetLocation(*new Vector(2.4f, 20.5, -20.f)); // shown different ways to call a virtual
@@ -43,6 +44,22 @@ void CardReader::BarrierSetup(CarPark& carParkObj)
 
 	entranceBarrier->SetLocation(*new Vector(1.20f, 1.15f, 2.f));
 	exitBarrier->SetLocation(*new Vector(20.f, 20.15f, 2.f));
+}
+
+void CardReader::SensorSetup(CarPark& carParkObj)
+{
+	entranceSensor = new Sensor(carParkObj, 1.5f);
+	exitSensor = new Sensor(carParkObj, 1.5f);
+
+	entranceSensor->SetLocation(*new Vector(1.10f, 1.05f, 1.5f));
+	exitSensor->SetLocation(*new Vector(19.90f, 20.05f, 1.5f));
+}
+
+void CardReader::ActivateSensor(float vehicleWeight, bool inOut)
+{
+	// if inOut is true then call entrance sensor class
+	if (inOut) entranceSensor->ActivateTrigger(vehicleWeight);
+	else exitSensor->ActivateTrigger(vehicleWeight);
 }
 
 void CardReader::SetLocation(Vector& vec) { }
