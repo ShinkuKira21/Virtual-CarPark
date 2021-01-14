@@ -10,13 +10,27 @@ CardReader::CardReader(CarPark& carParkObj, int mode, std::string membershipID, 
 	this->SetLocation(*new Vector(2.4f, 20.5, -20.f)); // shown different ways to call a virtual
 
 	if (mode == 1) VehicleIncrement(membershipID, card);
-	else VehicleDecrement();
+	if (mode == 0) VehicleDecrement();
 
-	PauseSystem();
-	ClearSystem();
+	if (mode != 2)
+	{
+		PauseSystem();
+		ClearSystem();
+	}
 }
 
 CardReader::~CardReader() { }
+
+Vector CardReader::GetSubclassLocation(int mode)
+{
+	if (mode == 0) return GetLocation();
+	if (mode == 1) return entranceBarrier->GetLocation();
+	if (mode == 2) return exitBarrier->GetLocation();
+	if (mode == 3) return entranceSensor->GetLocation();
+	if (mode == 4) return exitSensor->GetLocation();
+	
+	return Vector();
+}
 
 void CardReader::BarrierSetup(CarPark& carParkObj)
 {
@@ -77,7 +91,9 @@ void CardReader::VehicleDecrement()
 	DeallocateParkingSpace(TextInput("Enter Parking Space ID: "));
 }
 
-void CardReader::SetLocation(Vector& vec) { }
+void CardReader::SetLocation(Vector& vec) { SetVector(vec.GetVector(0), vec.GetVector(1), vec.GetVector(2)); }
+
+Vector CardReader::GetLocation() { return Vector(GetVector(0), GetVector(1), GetVector(2)); }
 
 std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {
