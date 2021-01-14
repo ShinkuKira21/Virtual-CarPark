@@ -10,9 +10,11 @@ class Barrier : private CarPark
 		Barrier(CarPark& carParkObj);
 		~Barrier();
 
-		virtual void SetLocation(Vector& vec);
-	private:
 		void SetState(bool state);
+		bool GetState();
+
+		virtual void SetLocation(Vector& vec);
+
+	private:
 		void DisplayState();
 };
-

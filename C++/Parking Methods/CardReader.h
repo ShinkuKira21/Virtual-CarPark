@@ -1,6 +1,7 @@
 #pragma once
 #include "CarPark.h"
 #include "Barrier.h"
+#include "Sensors.h"
 
 class CardReader : private CarPark
 {
@@ -8,16 +9,27 @@ class CardReader : private CarPark
 		class Barrier* entranceBarrier;
 		class Barrier* exitBarrier;
 
+		class Sensor* entranceSensor;
+		class Sensor* exitSensor;
+
 	public:
-		CardReader(CarPark& carParkObj, std::string membershipID = "", std::vector<struct Card>* card = nullptr);
+		CardReader(CarPark& carParkObj, int mode, std::string membershipID = "", std::vector<struct Card>* card = nullptr);
 		~CardReader();
 
 	private:
+		virtual void SetLocation(Vector& vec);
 		virtual std::string GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID) override;
 
 		void BarrierSetup(CarPark& carParkObj);
-		void PaymentMethod(std::string membershipType = "");
-		void ParkingMethod();	
+		void SensorSetup(CarPark& carParkObj);
+		void ActivateSensor(float vehicleWeight, bool inOut);
+
+		void VehicleIncrement(std::string membershipID, std::vector<Card>* card);
+		void VehicleDecrement();
+
+		bool UserInterface(std::string membershipID, std::vector<Card>* card);
+		bool PaymentMethod(std::string membershipType = "");
+		void ParkingMethod();
 };
 
 // Card could link to the database (via the membershipID)
