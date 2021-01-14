@@ -39,6 +39,7 @@ class CarPark : public Functions, protected Vector
 		void CountAvailableSpaces();
 
 		virtual void SetLocation(Vector& vec) override;
+		virtual Vector GetLocation();
 
 		// The message can be customised, 
 		// depending on where the message is displayed.

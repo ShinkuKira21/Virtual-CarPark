@@ -14,4 +14,5 @@ class Sensor : private CarPark
 		void ActivateTrigger(float carWeight);
 
 		virtual void SetLocation(Vector& vec);
+		virtual Vector GetLocation();
 };

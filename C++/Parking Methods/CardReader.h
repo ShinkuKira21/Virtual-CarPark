@@ -16,8 +16,12 @@ class CardReader : private CarPark
 		CardReader(CarPark& carParkObj, int mode, std::string membershipID = "", std::vector<struct Card>* card = nullptr);
 		~CardReader();
 
+		Vector GetSubclassLocation(int mode);
+
 	private:
 		virtual void SetLocation(Vector& vec);
+		virtual Vector GetLocation();
+
 		virtual std::string GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID) override;
 
 		void BarrierSetup(CarPark& carParkObj);

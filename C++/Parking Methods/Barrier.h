@@ -14,7 +14,7 @@ class Barrier : private CarPark
 		bool GetState();
 
 		virtual void SetLocation(Vector& vec);
-
+		virtual Vector GetLocation();
 	private:
 		void DisplayState();
 };
