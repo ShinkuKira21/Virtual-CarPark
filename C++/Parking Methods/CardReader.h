@@ -49,4 +49,3 @@ struct Card
 	std::string typeOfCard; // Visitor Card or Staff Card
 	std::string expiryDate; // If expired, sign will tell user to enter the carpark, and report to office to renew their membership or drive around carpark and approach exit barrier.
 };
-

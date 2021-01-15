@@ -3,8 +3,6 @@
 
 class Sign : private CarPark
 {
-	protected:
-
 	public:
 		Sign(CarPark& carParkObj);
 		~Sign();
