@@ -3,7 +3,7 @@
 // Default Constructor
 CarPark::CarPark() { }
 
-CarPark::CarPark(CarPark& cPark) 
+CarPark::CarPark(CarPark& cPark)
 {
 	// copy existing obj to current obj
 	carPark = &cPark;
@@ -19,8 +19,6 @@ CarPark::CarPark(int gSpaces, int dSpaces, int cSpaces)
 	
 	carPark->totalSpaces = carPark->availableGeneralSpaces + carPark->availableChildSpaces + carPark->availableDisabilitySpaces;
 
-	carPark->usedGeneralSpaces = carPark->usedChildSpaces = carPark->usedDisabilitySpaces = 0;
-
 	InitialiseParkingSlotIDs();
 }
 
@@ -32,12 +30,17 @@ CarPark::~CarPark()
 // returns carPark sub obj
 class CarPark* CarPark::GetClass() { return carPark; }
 
+void CarPark::SetLocation(Vector& vec)
+{
+	carPark->SetVector(vec.GetVector(0), vec.GetVector(1), vec.GetVector(2));
+}
+
+Vector CarPark::GetLocation() { return Vector(GetVector(0),GetVector(1),GetVector(2)); }
+
 std::string CarPark::AllocateParkingSpace(int parkingType)
 {
 	int maxChildSpace = carPark->availableGeneralSpaces + carPark->availableChildSpaces;
 	int maxDisabledSpace = maxChildSpace + carPark->availableDisabilitySpaces;
-
-	CountAvailableSpaces(); // count available spaces before change
 
 	// Standard
 	if (parkingType == 0)
@@ -73,36 +76,42 @@ std::string CarPark::AllocateParkingSpace(int parkingType)
 			}
 	}
 
-	DisplaySpaces();
-
 	return "";
 }
 
-void CarPark::DeallocateParkingSpace()
+void CarPark::DeallocateParkingSpace(std::string argParkingSpaceID)
 {
-
+	// Double Check !! IMPORTANT !!
+	for (int i = 0; i < carPark->totalSpaces; i++)
+		if (argParkingSpaceID == carPark->parkingSpaceID[i])
+		{
+			if (carPark->parkingSpaceStatus[i] != "Empty") carPark->parkingSpaceStatus[i] = "Empty";
+			else std::cout << "Parking space already empty!" << std::endl;
+		}
 }
 
 int CarPark::GetAvailabilityStatus()
 {
 	/* Code Identifiers and Meanings:
-	* Number: -1 - All Spaces are Empty (Correct)
-	* Number: -2 - General Spaces are Full (Correct)
-	* Number:  0 - General Spaces and Disability Spaces are Full
-	* Number:  1 - Disability Spaces are Full (Wrong)
-	* Number: -3 - All Spaces are Full
-	* Number: -4 - Child Spaces are Full
-	* Number: -5 - General Spaces and Child Spaces are Full
-	* Number: -2 - Disability and Child Spaces are Full
+	* Number: -15 - All Spaces are Empty
+	* Number: -30 - General Spaces are Full
+	* Number: -28 - General Spaces and Disability Spaces are Full
+	* Number: -13 - Disability Spaces are Full
+	* Number: -31 - All Spaces are Full
+	* Number: -18 - Child Spaces are Full
+	* Number: -33 - General Spaces and Child Spaces are Full
+	* Number: -16 - Disability and Child Spaces are Full
 	*/
 
 	// smarter to suggest which spaces are full
-	int spaceCount = -1;
+	int spaceCount = -15;
 
-	// availableGeneralSpaces are full
-	if (carPark->availableGeneralSpaces - carPark->usedGeneralSpaces == 0) spaceCount--; // if empty, add 1.
+	// availableGeneralSpaces are full1
+	if (carPark->availableGeneralSpaces - carPark->usedGeneralSpaces == 0) spaceCount -= 15; // if empty, add 1.
 	if (carPark->availableDisabilitySpaces - carPark->usedDisabilitySpaces == 0) spaceCount += 2;
 	if (carPark->availableChildSpaces - carPark->usedChildSpaces == 0) spaceCount -= 3;
+	
+	CountAvailableSpaces(); // count available spaces before change
 
 	return spaceCount; // else turn true.
 }
@@ -142,6 +151,8 @@ void CarPark::CountAvailableSpaces()
 {
 	int maxChildSpace = carPark->availableGeneralSpaces + carPark->availableChildSpaces;
 	int maxDisabledSpace = maxChildSpace + carPark->availableDisabilitySpaces;
+
+	carPark->usedGeneralSpaces = carPark->usedChildSpaces = carPark->usedDisabilitySpaces = 0;
 
 	for (int i = 0; i < carPark->availableGeneralSpaces; i++)
 		if (carPark->parkingSpaceStatus[i] == "Taken")

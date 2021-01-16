@@ -1,7 +1,8 @@
 #pragma once
 #include "../../Library/Functions.h"
+#include "Vector.h"
 
-class CarPark : public Functions
+class CarPark : public Functions, protected Vector
 {
 	// this-> current class
 	// carPark-> sub obj class
@@ -11,6 +12,7 @@ class CarPark : public Functions
 		// reuse the same obj for different child classes?
 		// not sure if there's a better way...
 		CarPark* carPark;
+
 		int totalSpaces;
 
 		// Defaults
@@ -21,7 +23,6 @@ class CarPark : public Functions
 		const std::string parkingSpaceIDs[3] = { "CG-PS-", "CH-PS-", "CD-PS-" };
 		std::string* parkingSpaceID;
 		std::string* parkingSpaceStatus;
-		char* allocatedSpaces;
 
 	public:
 		CarPark(CarPark& cPark);
@@ -31,11 +32,15 @@ class CarPark : public Functions
 		class CarPark* GetClass();
 
 		std::string AllocateParkingSpace(int parkingType);
-		void DeallocateParkingSpace();
+		void DeallocateParkingSpace(std::string parkingSpaceID);
 
 		int GetAvailabilityStatus();
 		std::string GetParkingSpaceNumber();
-	
+		void CountAvailableSpaces();
+
+		virtual void SetLocation(Vector& vec) override;
+		virtual Vector GetLocation();
+
 		// The message can be customised, 
 		// depending on where the message is displayed.
 		virtual std::string GetParkStatusMessage(int parkingSpace = NULL, std::string parkingSpaceID = "") 
@@ -44,7 +49,6 @@ class CarPark : public Functions
 			return "Error: Car Park is full.";
 		}
 
-		//Debugging Area
 		virtual void DisplaySpaces()
 		{
 			for (int i = 0; i < carPark->totalSpaces; i++)
@@ -59,5 +63,4 @@ class CarPark : public Functions
 		CarPark();
 		
 		void InitialiseParkingSlotIDs();
-		void CountAvailableSpaces();
 };

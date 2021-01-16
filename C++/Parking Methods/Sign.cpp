@@ -2,40 +2,47 @@
 
 Sign::Sign(CarPark& carParkObj) : CarPark(carParkObj)
 {
-	
+	DisplayText();
 }
 
-Sign::~Sign()
-{
-
-}
+Sign::~Sign() { }
 
 std::string Sign::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {
 	switch (GetAvailabilityStatus())
 	{
-		case -1:
-			return "All Spaces are Empty.";
+		case -15:
+			return "Available Spaces";
 
-		case 0:
+		case -30:
 			return "General Spaces are Full.";
 
-		case -3:
+		case -28:
 			return "General Spaces and Disability Spaces are Full.";
 
-		case 3:
+		case -13:
 			return "Disability Spaces are full.";
 
-		case 1:
+		case -18:
 			return "Child Spaces are Full.";
 
-		case -4: 
+		case -33: 
 			return "General Spaces and Child Spaces are Full";
 
-		case 4:
+		case -16:
 			return "Disability and Child Spaces are Full";
 
 		default:
 			return "Error: Car Park is full.";
 	}
+}
+
+void Sign::SetLocation(Vector& vec) { SetVector(vec.GetVector(0), vec.GetVector(1), vec.GetVector(2)); }
+
+Vector Sign::GetLocation(){ return Vector(GetVector(0), GetVector(1), GetVector(2)); }
+
+void Sign::DisplayText()
+{
+	std::cout << "\t\t\tCar Park | Message Board\n\n\t";
+	std::cout << GetParkStatusMessage() << std::endl << std::endl << std::endl << std::endl;
 }
