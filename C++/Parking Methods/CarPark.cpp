@@ -13,19 +13,24 @@ CarPark::CarPark(CarPark& cPark)
 
 CarPark::CarPark(int gSpaces, int dSpaces, int cSpaces)
 {
+	// creates new carPark
 	carPark = new CarPark();
 
+	// initialises the objects spaces
 	carPark->availableGeneralSpaces = gSpaces; 
 	carPark->availableDisabilitySpaces = dSpaces;
 	carPark->availableChildSpaces = cSpaces;
 	
+	// calculates the total spaces
 	carPark->totalSpaces = carPark->availableGeneralSpaces + carPark->availableChildSpaces + carPark->availableDisabilitySpaces;
 
+	//initialises the parking slot IDs
 	InitialiseParkingSlotIDs();
 }
 
 CarPark::~CarPark()
 {
+	// cleans up pointers
 	delete parkingSpaceID, parkingSpaceStatus;
 }
 
@@ -41,12 +46,14 @@ Vector CarPark::GetLocation() { return Vector(GetVector(0),GetVector(1),GetVecto
 
 std::string CarPark::AllocateParkingSpace(int parkingType)
 {
+	// calculates the max child spaces and max disabled spaces
 	int maxChildSpace = carPark->availableGeneralSpaces + carPark->availableChildSpaces;
 	int maxDisabledSpace = maxChildSpace + carPark->availableDisabilitySpaces;
 
 	// Standard
 	if (parkingType == 0)
 	{
+		// will find the first empty space of general space type
 		for (int i = 0; i < carPark->availableGeneralSpaces; i++)
 			if (carPark->parkingSpaceStatus[i] == "Empty")
 			{
@@ -58,6 +65,7 @@ std::string CarPark::AllocateParkingSpace(int parkingType)
 	// Child
 	else if (parkingType == 1)
 	{
+		// will find the first empty space of the child space
 		for (int i = carPark->availableGeneralSpaces; i < maxChildSpace; i++)
 			if (carPark->parkingSpaceStatus[i] == "Empty")
 			{
@@ -70,6 +78,7 @@ std::string CarPark::AllocateParkingSpace(int parkingType)
 	// Disabled
 	else
 	{
+		// will find the first empty space of the disabled space
 		for (int i = maxChildSpace; i < maxDisabledSpace; i++)
 			if (carPark->parkingSpaceStatus[i] == "Empty")
 			{
@@ -81,9 +90,10 @@ std::string CarPark::AllocateParkingSpace(int parkingType)
 	return "";
 }
 
+
+// deallocates parking spaces, for new cars to enter
 void CarPark::DeallocateParkingSpace(std::string argParkingSpaceID)
 {
-	// Double Check !! IMPORTANT !!
 	for (int i = 0; i < carPark->totalSpaces; i++)
 		if (argParkingSpaceID == carPark->parkingSpaceID[i])
 		{
@@ -92,6 +102,8 @@ void CarPark::DeallocateParkingSpace(std::string argParkingSpaceID)
 		}
 }
 
+// Checkout: UT-CarPark solution.
+// Inside will display how this logic was tested.
 int CarPark::GetAvailabilityStatus()
 {
 	/* Code Identifiers and Meanings:
@@ -118,8 +130,7 @@ int CarPark::GetAvailabilityStatus()
 	return spaceCount; // else turn true.
 }
 
-std::string CarPark::GetParkingSpaceNumber() { return nullptr; }
-
+// 
 void CarPark::InitialiseParkingSlotIDs()
 {
 	carPark->parkingSpaceID = new std::string[carPark->totalSpaces];

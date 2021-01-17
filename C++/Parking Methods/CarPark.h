@@ -37,7 +37,6 @@ class CarPark : public Functions, protected Vector
 		void DeallocateParkingSpace(std::string parkingSpaceID);
 
 		int GetAvailabilityStatus();
-		std::string GetParkingSpaceNumber();
 		void CountAvailableSpaces();
 
 		virtual void SetLocation(Vector& vec) override;
@@ -51,6 +50,7 @@ class CarPark : public Functions, protected Vector
 			return "Error: Car Park is full.";
 		}
 
+		//Displays all spaces
 		virtual void DisplaySpaces()
 		{
 			for (int i = 0; i < carPark->totalSpaces; i++)
