@@ -11,12 +11,13 @@
 //Enables input into the CarPark class and it's subclasses
 Functions func;
 
-void RegisterUserCard(int* lengthCards, std::vector<struct Card>* aCards);
+void RegisterUserCard(int* lengthCards, std::vector<struct Card>* aCards, IDReaders* idReaders);
 void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards);
 void LocationDetails(CarPark* cp, Sign* sign);
 
 int main()
 {	
+	// Task 2
 	IDReaders* idReaders = new IDReaders();
 
 	CarPark* cp = new CarPark(2, 1, 1);
@@ -36,7 +37,7 @@ int main()
 		
 		func.ClearSystem();
 
-		if (interactionBoard == 1) RegisterUserCard(&lengthCards, &cards);
+		if (interactionBoard == 1) RegisterUserCard(&lengthCards, &cards, idReaders);
 		else if (interactionBoard == 2) SwipeCard(*cp->GetClass(), &cards);
 		else if (interactionBoard == 3) new CardReader(*cp->GetClass(), 0);
 		else if (interactionBoard == 4) LocationDetails(cp->GetClass(), sign);
@@ -51,7 +52,7 @@ int main()
 	return 0;
 }
 
-void RegisterUserCard(int* aLength, std::vector<struct Card>* aCards)
+void RegisterUserCard(int* aLength, std::vector<struct Card>* aCards, IDReaders* idReaders)
 {
 	aCards->push_back(Card());
 
@@ -61,7 +62,8 @@ void RegisterUserCard(int* aLength, std::vector<struct Card>* aCards)
 	aCards->at(*aLength).membershipType = func.TextInput("Enter membership type ([V|istor][S|taff]): ");
 	aCards->at(*aLength).expiryDate = func.TextInput("Enter expiry date (dd/mm/yy): ");
 
-	std::cout << "Card ID: " << aCards->at(*aLength).membershipID;
+	// Adds a barcode to new membership card. (Task 2)
+	idReaders->AddBarcode(aCards->at(*aLength).membershipID, aCards);
 
 	*aLength = *aLength + 1;
 
