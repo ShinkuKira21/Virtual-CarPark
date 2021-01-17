@@ -101,4 +101,10 @@ class Functions
 
             return cInput;
         }
+
+        // Latest Feature <3 || Should work on Windows and Linux (Not tested Linux yet)
+        std::string ColorText(std::string input, int FG, int BG, int opt = 1)
+        {
+            return "\033[" + std::to_string(opt) + ";" + std::to_string(BG) + ";" + std::to_string(FG) + "m" + input + "\033[0m";
+        }
 };
