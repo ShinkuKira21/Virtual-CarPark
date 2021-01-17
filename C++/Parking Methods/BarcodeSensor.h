@@ -14,7 +14,6 @@
 
 #include "IDReaders.h"
 
-
 struct Card;
 struct Barcodes;
 

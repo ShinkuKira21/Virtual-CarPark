@@ -31,11 +31,11 @@ class CardReader : private CarPark
 		void ActivateSensor(float vehicleWeight, bool inOut);
 
 		void VehicleIncrement(std::string membershipID, std::vector<Card>* card);
-		void VehicleDecrement();
+		void VehicleDecrement(int mode = 0);
 
 		bool UserInterface(std::string membershipID, std::vector<Card>* card);
 		bool PaymentMethod(std::string membershipType = "");
-		void ParkingMethod();
+		bool ParkingMethod();
 };
 
 // Card could link to the database (via the membershipID)
