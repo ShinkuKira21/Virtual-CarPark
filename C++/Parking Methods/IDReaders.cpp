@@ -2,6 +2,7 @@
 
 #include "IDReaders.h"
 #include "BarcodeSensor.h"
+#include "NumberPlateSensor.h"
 
 IDReaders::IDReaders() { }
 
@@ -55,11 +56,12 @@ void IDReaders::Options(int uiMode)
 	// could be improved, however, this was to demonstrate the cross
 	// circular dependency problem.
 	BarcodeSensor* barcodeReader = new BarcodeSensor();
+	NumberPlateSensor* numPlateSensor = new NumberPlateSensor();
 
 	if (uiMode == 1) ShowBarcodes();
 	if (uiMode == 2) barcodeReader->OperateScanner(&barcodeDatabase, cards);
 	if (uiMode == 3) AddNumberPlate();
-	if (uiMode == 4) return;
+	if (uiMode == 4) numPlateSensor->OperateScanner(&numberPlateDatabase);
 }
 
 void IDReaders::ShowBarcodes()

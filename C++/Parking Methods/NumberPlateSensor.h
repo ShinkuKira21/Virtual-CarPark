@@ -4,12 +4,19 @@
 
 #include "IDReaders.h"
 
-class NumberPlateSensor : private IDReaders
+struct NumberPlates;
+
+class NumberPlateSensor : private Functions
 {
 	protected:
+		std::vector<struct NumberPlates>* numberPlateDatabase;
 	public:
 		NumberPlateSensor();
 		~NumberPlateSensor();
 
+		void OperateScanner(std::vector<struct NumberPlates>* numberPlateDatabase);
+
 	private:
+		void UpdateVectors(std::vector<struct NumberPlates>* numberPlateDatabase);
+		void SubmitQuery(std::string query);
 };
