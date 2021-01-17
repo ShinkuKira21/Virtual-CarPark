@@ -1,6 +1,7 @@
+/* Author: Edward Patch (1801492) - University of Wales Trinity St. Davids */
+
 #pragma once
 
-#include "CarPark.h"
 #include "CardReader.h"
 
 struct Barcodes;
@@ -9,11 +10,6 @@ struct NumberPlates;
 class IDReaders : private Functions
 {
 	protected:
-		// These structs are multipurpose, they will act like a database,
-		// they will also be a way of holding data.
-		Barcodes* barcodeObj;
-		NumberPlates* numberPlateObj;
-		
 		// A vector object to demonstrate the two databases
 		std::vector<struct Barcodes> barcodeDatabase;
 		std::vector<struct NumberPlates> numberPlateDatabase;
@@ -31,6 +27,7 @@ class IDReaders : private Functions
 	private:
 		void Options(int uiMode);
 		void ShowBarcodes();
+		void AddNumberPlate();
 };
 
 struct Barcodes
@@ -43,5 +40,10 @@ struct NumberPlates
 {
 	// You only need the numberplate number, 
 	// then search the number through a database.
-	std::string numberplate;
+	std::string carRegistration;
+
+	// Database Side:
+	std::string carMakeModel;
+	std::string carColour;
+	std::string carMilage;
 };

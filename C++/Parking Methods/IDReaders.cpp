@@ -1,8 +1,9 @@
-#include "IDReaders.h"
+/* Author: Edward Patch (1801492) - University of Wales Trinity St. Davids */
 
-IDReaders::IDReaders()
-{
-}
+#include "IDReaders.h"
+#include "BarcodeSensor.h"
+
+IDReaders::IDReaders() { }
 
 IDReaders::~IDReaders() { }
 
@@ -49,9 +50,15 @@ void IDReaders::Options(int uiMode)
 
 	ClearSystem();
 
+	// the fix to the circular dependency,
+	// is via forward declarations, and avoid cross referencing headers
+	// could be improved, however, this was to demonstrate the cross
+	// circular dependency problem.
+	BarcodeSensor* barcodeReader = new BarcodeSensor();
+
 	if (uiMode == 1) ShowBarcodes();
-	if (uiMode == 2) return;
-	if (uiMode == 3) return;
+	if (uiMode == 2) barcodeReader->OperateScanner(&barcodeDatabase, cards);
+	if (uiMode == 3) AddNumberPlate();
 	if (uiMode == 4) return;
 }
 
@@ -70,4 +77,18 @@ void IDReaders::ShowBarcodes()
 	// if barcode database obj is empty pausesystem
 	if(barcodeDatabase.size() != 0)
 		PauseSystem();
+}
+
+void IDReaders::AddNumberPlate()
+{
+	// Adds a NumberPlate to vector object
+	numberPlateDatabase.push_back(NumberPlates());
+
+	// Car Registrations are already unique.
+	numberPlateDatabase.at(numberPlateDatabase.size() - 1).carRegistration = TextInput("Input Car Registration: ");
+
+	//Asks user for make/model, colour and milage
+	numberPlateDatabase.at(numberPlateDatabase.size() - 1).carMakeModel = TextInput("Input Car Make/Model: ");
+	numberPlateDatabase.at(numberPlateDatabase.size() - 1).carColour = TextInput("Input Car Colour: ");
+	numberPlateDatabase.at(numberPlateDatabase.size() - 1).carMilage = TextInput("Input Car Milage: ");
 }
