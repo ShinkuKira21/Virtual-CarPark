@@ -22,8 +22,10 @@ class Vector
 		float GetVector(int selector);
 		float GetDotProduct(Vector& aVec);
 
+		// sets location
 		virtual void SetLocation(Vector& vec) { SetVector(vec.GetVector(0), vec.GetVector(1), vec.GetVector(2)); }
 
+		// returns vector
 		virtual Vector GetLocation() { return Vector(GetVector(0), GetVector(1), GetVector(2)); }
 };
 

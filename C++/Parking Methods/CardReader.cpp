@@ -73,7 +73,7 @@ void CardReader::ActivateSensor(float vehicleWeight, bool inOut)
 void CardReader::VehicleIncrement(std::string membershipID, std::vector<Card>* card)
 {
 	// Entrance sensor
-	ActivateSensor((float)NumberInput("Enter car weight: "), true);
+	ActivateSensor((float)NumberInput("Enter car weight (Tonnes): "), true);
 	ClearSystem();
 
 	// if car doesn't reaches weight minimum, then

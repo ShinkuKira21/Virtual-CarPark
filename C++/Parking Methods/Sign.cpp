@@ -11,6 +11,7 @@ Sign::~Sign() { }
 
 std::string Sign::GetParkStatusMessage(int parkingSpace, std::string parkingSpaceID)
 {
+	// custom display messages, depending on the error value
 	switch (GetAvailabilityStatus())
 	{
 		case -15:
@@ -43,6 +44,7 @@ void Sign::SetLocation(Vector& vec) { SetVector(vec.GetVector(0), vec.GetVector(
 
 Vector Sign::GetLocation(){ return Vector(GetVector(0), GetVector(1), GetVector(2)); }
 
+// Displays the text on the digital LCD sign
 void Sign::DisplayText()
 {
 	std::cout << "\t\t\tCar Park | Message Board\n\n\t";

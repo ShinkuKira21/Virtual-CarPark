@@ -130,7 +130,7 @@ int CarPark::GetAvailabilityStatus()
 	return spaceCount; // else turn true.
 }
 
-// 
+// Initialises the parkingSpaceIDs pointers
 void CarPark::InitialiseParkingSlotIDs()
 {
 	carPark->parkingSpaceID = new std::string[carPark->totalSpaces];
@@ -160,6 +160,7 @@ void CarPark::InitialiseParkingSlotIDs()
 	}
 }
 
+// counts the available spaces
 void CarPark::CountAvailableSpaces()
 {
 	int maxChildSpace = carPark->availableGeneralSpaces + carPark->availableChildSpaces;
