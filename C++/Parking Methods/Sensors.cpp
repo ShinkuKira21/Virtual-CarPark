@@ -11,10 +11,12 @@ void Sensor::SetLocation(Vector& vec) { SetVector(vec.GetVector(0), vec.GetVecto
 
 Vector Sensor::GetLocation() { return Vector(GetVector(0), GetVector(1), GetVector(2)); }
 
+// if carWeight >= triggerWeight then car is detected
 void Sensor::ActivateTrigger(float carWeight)
 {
 	if (carWeight >= triggerWeight) bIsPressed = true;
 	else bIsPressed = false;
 }
 
+// Returns the status of the sensor
 bool Sensor::GetStatus() { return bIsPressed; }

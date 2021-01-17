@@ -14,6 +14,7 @@ void Barrier::SetState(bool state) { bBarrierStatus = state; }
 
 bool Barrier::GetState() { return bBarrierStatus; }
 
+// if barrier is open or close, change display
 void Barrier::DisplayState() 
 { 
 	if (bBarrierStatus)
