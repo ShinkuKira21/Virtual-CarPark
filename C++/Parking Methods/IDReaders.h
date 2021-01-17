@@ -2,13 +2,16 @@
 
 #include "CarPark.h"
 
-class IDReaders
+struct Barcodes;
+struct NumberPlates;
+
+class IDReaders : private Functions
 {
 	protected:
 		// These structs are multipurpose, they will act like a database,
 		// they will also be a way of holding data.
-		struct Barcodes barcodeObj;
-		struct NumberPlates numberPlateObj;
+		Barcodes* barcodeObj;
+		NumberPlates* numberPlateObj;
 
 		// A vector array to demonstrate the two databases
 		std::vector<struct Barcodes> barcodeDatabase;
@@ -17,8 +20,10 @@ class IDReaders
 	public:
 		IDReaders();
 		~IDReaders();
-	private:
 
+		void UserInteraction();
+	private:
+		void Options(int uiMode);
 };
 
 struct Barcodes

@@ -2,6 +2,8 @@
 
 #include "../../Library/Functions.h"
 
+#include "IDReaders.h" // Task 2
+
 #include "CardReader.h"
 #include "Sign.h"
 #include "Barrier.h"
@@ -15,6 +17,8 @@ void LocationDetails(CarPark* cp, Sign* sign);
 
 int main()
 {	
+	IDReaders* idReaders = new IDReaders();
+
 	CarPark* cp = new CarPark(2, 1, 1);
 	cp->SetLocation(*new Vector(35.f, -25.35f, 45.f));
 
@@ -28,7 +32,7 @@ int main()
 		sign = new Sign(*cp->GetClass());
 		sign->SetLocation(*new Vector(2.50f, 2.50f, 2.50f));
 
-		int interactionBoard = (int)func.NumberInput("\t\t\tUser Interaction Menu\n\n1) Register User\t2) Swipe Card\n3) Drive Away\t\t4) Location Information\n\n5+) Exit\n\nYour Input: ");
+		int interactionBoard = (int)func.NumberInput("\t\t\tUser Interaction Menu\n\n1) Register User\t2) Swipe Card\n3) Drive Away\t\t4) Location Information\n\n5) Additional Features\t\t6+) Exit\n\nYour Input: ");
 		
 		func.ClearSystem();
 
@@ -36,6 +40,7 @@ int main()
 		else if (interactionBoard == 2) SwipeCard(*cp->GetClass(), &cards);
 		else if (interactionBoard == 3) new CardReader(*cp->GetClass(), 0);
 		else if (interactionBoard == 4) LocationDetails(cp->GetClass(), sign);
+		else if (interactionBoard == 5) idReaders->UserInteraction();
 		else break;
 
 		func.ClearSystem();

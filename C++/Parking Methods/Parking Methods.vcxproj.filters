@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\SecondTask">
+      <UniqueIdentifier>{6d99381d-7c7d-48f0-acf6-f1d10cbe150b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SecondTask">
+      <UniqueIdentifier>{a199ef00-2271-4fbb-aa7e-2beb3c6a475e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Barrier.cpp">
@@ -36,6 +42,15 @@
     <ClCompile Include="Vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IDReaders.cpp">
+      <Filter>Source Files\SecondTask</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberPlateSensor.cpp">
+      <Filter>Source Files\SecondTask</Filter>
+    </ClCompile>
+    <ClCompile Include="BarcodeSensor.cpp">
+      <Filter>Source Files\SecondTask</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Barrier.h">
@@ -55,6 +70,15 @@
     </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberPlateSensor.h">
+      <Filter>Header Files\SecondTask</Filter>
+    </ClInclude>
+    <ClInclude Include="BarcodeSensor.h">
+      <Filter>Header Files\SecondTask</Filter>
+    </ClInclude>
+    <ClInclude Include="IDReaders.h">
+      <Filter>Header Files\SecondTask</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
