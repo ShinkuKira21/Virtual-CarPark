@@ -1,3 +1,5 @@
+/* Author: Edward Patch (1801492) - University of Wales Trinity St. Davids */
+
 #include "Barrier.h"
 
 Barrier::Barrier(CarPark& carParkObj) : CarPark(carParkObj) { SetState(false); }

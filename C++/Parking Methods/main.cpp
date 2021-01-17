@@ -1,3 +1,5 @@
+/* Author: Edward Patch (1801492) - University of Wales Trinity St. Davids */
+
 #include "../../Library/Functions.h"
 
 #include "CardReader.h"

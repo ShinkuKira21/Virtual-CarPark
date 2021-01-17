@@ -1,3 +1,5 @@
+/* Author: Edward Patch (1801492) - University of Wales Trinity St. Davids */
+
 #include "Sensors.h"
 
 Sensor::Sensor(CarPark& carParkObj, float aTriggerWeight) : CarPark(carParkObj) 
