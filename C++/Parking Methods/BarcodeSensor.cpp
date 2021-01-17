@@ -32,7 +32,7 @@ void BarcodeSensor::SubmitQuery(std::string query)
 	// Find Query of Barcode
 	for (int i = 0; i < barcodeDatabase->size(); i++)
 	{
-		if (barcodeDatabase->at(0).id == query)
+		if (barcodeDatabase->at(i).id == query)
 		{
 			// switches boolean to true
 			bFoundBarcode = !bFoundBarcode;
