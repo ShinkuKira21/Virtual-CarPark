@@ -2,7 +2,10 @@
 
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../Parking Methods/CarPark.h"
+
+#include "../../Library/Functions.h"
+#include "../Parking Methods/CarPark.h" // Car Park
+#include "../Parking Methods/CardReader.h" // Card Reader
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -73,7 +76,7 @@ namespace UTCarPark
 				Assert::AreEqual(-31, Paths(true, true, true));
 			}
 
-		protected:
+		private:
 			int Paths(bool generalSpaces, bool disabledSpaces, bool childSpaces)
 			{
 				int err = error;
@@ -87,5 +90,94 @@ namespace UTCarPark
 
 namespace UTCardReader
 {
+	TEST_CLASS(UTCardReader)
+	{
+		protected:
+			Functions func;
 
+			struct Card cards;
+
+			std::vector<struct Card> vecCards;
+
+			const std::string testTypeData[6] = { "V", "s", "v", "V", "S", "s" };
+			const std::string testNameData[6] = { "Jason Davies", "Mary Anderson", "Travis Smith", "Jessica Emmerfield", "Jack Grill", "Jessie Jackson" };
+			const std::string testExpiryDates[6] = { "26/07/2023", "17/03/2022", "19/01/2021", "31/03/2021", "26/04/2022", "15/02/2024" };		
+
+		public:
+			TEST_METHOD(UTCardStruct_Testing)
+			{
+				// Testing the Card Struct 
+				cards.membershipID = "0";
+				Assert::AreEqual(cards.membershipID, std::string("0"));
+			}
+
+			TEST_METHOD(UTCardStruct_VectorMembershipAlgorythm)
+			{
+				/* Tests Conducted: 4 | Information: No errors */
+
+				// Adds 6 user cards to the vecCards Vector
+				SetupUserCards(6);
+
+				// Checks if each ID goes up in a increment of 1, from zero
+				for (int i = 0; i < vecCards.size(); i++)
+					Assert::AreEqual(std::to_string(i), vecCards.at(i).membershipID);
+
+				ClearUserCards();
+			}
+
+			TEST_METHOD(UTCardStruct_ComparisonErrorCheck)
+			{
+				/* Tests Conducted: 6 | Information: No errors */
+
+				SetupUserCards(6);
+
+				// Test checks if the information would return with string error
+				for(int i = 0; i < 6; i++)
+					Assert::IsTrue(CheckData(std::to_string(i)).size() > 0);
+
+				ClearUserCards();
+			}
+
+			TEST_METHOD(UTCardStruct_UserRecordIntegrity)
+			{
+				/* Tests Conducted: 2 | Information: No Errors */
+				SetupUserCards(6);
+
+				// Test checks if user card data, matches with test data where membership ID is matched.
+				for (int i = 0; i < vecCards.size(); i++)
+					Assert::AreEqual(testNameData[i], CheckData(std::to_string(i)).at(0).memberName);
+			}
+
+		private:
+			void SetupUserCards(int userCards)
+			{
+				for (int i = 0; i < userCards; i++)
+				{
+					vecCards.push_back(Card());
+
+					// if vecCards vector size is equal to 1 then set initial ID to 0
+					if (vecCards.size() == 1) vecCards.at(0).membershipID = "0";
+					// set vecCard at current index, with the membershipID of last index, and add one to the index. (After converting TextToNumber)
+					else vecCards.at(i).membershipID = std::to_string((int)func.TextToNumber(vecCards.at(i-1).membershipID) + 1);
+
+					// fills vecCards with test data
+					vecCards.at(i).membershipType = testTypeData[i];
+					vecCards.at(i).memberName = testNameData[i];
+					vecCards.at(i).expiryDate = testExpiryDates[i];	
+				}
+			}
+
+			void ClearUserCards() { vecCards.clear(); }
+
+			std::vector<struct Card> CheckData(std::string membershipID)
+			{
+				std::vector<struct Card> cardInfo;
+
+				for (int i = 0; i < vecCards.size(); i++)
+					if (vecCards.at(i).membershipID == membershipID)
+						cardInfo.push_back(vecCards.at(i));
+					
+				return cardInfo;
+			}
+	};
 }
