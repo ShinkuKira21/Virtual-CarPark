@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
+#include <ctime>
 class Functions 
 {
     protected:
@@ -16,6 +16,9 @@ class Functions
         char cInput;
         double nInput;
         
+        time_t t;
+        tm* localTime;
+
     public:
         void PauseSystem() 
         { 
@@ -106,5 +109,36 @@ class Functions
         std::string ColorText(std::string input, int FG, int BG, int opt = 1)
         {
             return "\033[" + std::to_string(opt) + ";" + std::to_string(BG) + ";" + std::to_string(FG) + "m" + input + "\033[0m";
+        }
+
+        // Date Logic
+        int GetDay() 
+        { 
+            localTime = new tm();
+
+            t = time(0);
+            localtime_s(localTime, &t);
+
+            return localTime->tm_mday;
+        }
+
+        int GetMonth()
+        {
+            localTime = new tm();
+
+            t = time(0);
+            localtime_s(localTime, &t);
+
+            return 1 + localTime->tm_mon;
+        }
+
+        int GetYear()
+        {
+            localTime = new tm();
+
+            t = time(0);
+            localtime_s(localTime, &t);
+
+            return 1900 + localTime->tm_year;
         }
 };
