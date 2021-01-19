@@ -4,6 +4,7 @@
 #include "CarPark.h"
 #include "Barrier.h"
 #include "Sensors.h"
+#include <ctime>
 
 class CardReader : private CarPark
 {
@@ -34,8 +35,10 @@ class CardReader : private CarPark
 		void VehicleDecrement(int mode = 0);
 
 		bool UserInterface(std::string membershipID, std::vector<Card>* card);
-		bool PaymentMethod(std::string membershipType = "");
+		bool CheckMembershipCard(std::string membershipID, std::vector<Card>* card);
 		bool ParkingMethod();
+
+		std::string GetCurrentDate();
 };
 
 // Card could link to the database (via the membershipID)

@@ -83,21 +83,12 @@ void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards)
 	// declares a CardReader named cReader
 	CardReader* cReader;
 	std::string memID; // holds membershipID
-
-	// asks use if card is available
-	bool bCardAvailable = (int)func.NumberInput("Is Card Available? n(0/1)y: ");
 	
 	func.ClearSystem();
 
-	// if card is available then asks user to type in the membership ID
-	// else the a new CardReader will be initialise with a default card
-	// of nullptr (no card available)
-	if (bCardAvailable)
-	{
-		memID = std::to_string((int)func.NumberInput("Enter Membership ID: "));
-		cReader = new CardReader(cp, 1, memID, aCards);
-	}
-	else cReader = new CardReader(cp, 1);
+	// asks user to type in the membership ID
+	memID = std::to_string((int)func.NumberInput("Enter Membership ID: "));
+	cReader = new CardReader(cp, 1, memID, aCards);
 }
 
 void LocationDetails(CarPark* cp, Sign* sign)

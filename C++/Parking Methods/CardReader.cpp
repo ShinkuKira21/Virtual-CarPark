@@ -161,96 +161,32 @@ std::string CardReader::GetParkStatusMessage(int parkingSpace, std::string parki
 	DisplaySpaces();
 }
 
-// Asks the user for a payment method
+// Checks User Card || Choose Parking Method
 bool CardReader::UserInterface(std::string membershipID, std::vector<Card>* card)
 {
-	// sets error msg to invalid card (will override if it isn't)
-	std::string errorMsg = "Invalid Card";
 	bool bParkingStatus = false;
 
-	// if card doesn't exit then ask for payment method.
-	// otherwise use membership card
-	if (card == nullptr)
-	{
-		bParkingStatus = PaymentMethod();
-		errorMsg = ""; // sets error message to nothing as payment gone through
-	}
-	else
-	{
-		for (int i = 0; i < card->size(); i++)
-			if (card->at(i).membershipID == membershipID)
-			{
-				bParkingStatus = PaymentMethod(card->at(i).membershipType);
-				errorMsg = "";
-			}
-	}
+	bParkingStatus = CheckMembershipCard(membershipID, card);
 
-	// display error message
-	std::cout << errorMsg << std::endl;
-
-	if (errorMsg == "")
+	// if bParkingStatus is true then ask user about their parking method
+	if (bParkingStatus)
 		bParkingStatus = ParkingMethod(); // if error message doesnt exist ask for parking method
+
+	// else display error message
+	else std::cout << ColorText("Invalid Card", 37, 41) << "\nPlease exit the carpark!" << std::endl;
 
 	return bParkingStatus;
 }
 
-//Processes the payment method
-bool CardReader::PaymentMethod(std::string membershipType)
+bool CardReader::CheckMembershipCard(std::string membershipID, std::vector<Card>* card)
 {
-	// menu can allow users to interact with interaction board
-	int menu;
-	bool bPaymentStatus = false;
+	// Loop through user cards and if membershipID matches then return true.
+	// date needs to change to integer to compare.
+	for (int i = 0; i < card->size(); i++)
+		if (card->at(i).membershipID == membershipID && GetCurrentDate() != card->at(i).expiryDate)
+			return true;
 
-	// if user is a visitor
-	if (membershipType == "V" || membershipType == "v")
-	{
-		std::cout << "Card Accepted." << std::endl;
-		bPaymentStatus = true;
-	}
-
-	// else ask for payment type
-	else
-	{
-		menu = (int)NumberInput("\t\t\tUser Interaction Menu\n\n1) Card | 2) NFC (Contactless)\n\nYour Value: ");
-
-		// if failed, recall this function.
-		if (menu < 1 || menu > 2)
-		{
-			ClearSystem();
-			PaymentMethod(membershipType);
-		}
-
-		// menu == 1 means that the user has request direct debit card.
-		if (menu == 1)
-		{
-			// For show
-			std::cout << "Place Card" << std::endl;
-
-			PauseSystem();
-			ClearSystem();
-
-			std::cout << "Please wait..." << std::endl;
-			TextInput("Please enter pincode: ");
-
-			ClearSystem();
-
-			std::cout << "Accepted" << std::endl;
-			bPaymentStatus = true;
-		}
-
-		// else NFC payment
-		else
-		{
-			std::cout << "Please wait..." << std::endl;
-			std::cout << "Accepted" << std::endl;
-			bPaymentStatus = true;
-		}
-	}
-
-	PauseSystem();
-	ClearSystem();
-
-	return bPaymentStatus;
+	return false;
 }
 
 // Asks the user if they require special requirements
@@ -273,4 +209,16 @@ bool CardReader::ParkingMethod()
 		return false; // parking failed.
 	
 	return true; //parking completed.
+}
+
+std::string CardReader::GetCurrentDate()
+{
+	// gets current time stamp
+	time_t t = time(0);
+
+	// gets local time based on machine configuration
+	tm* localTime = new tm(); localtime_s(localTime, &t);
+
+	// creates a date string "31/12/2000"
+	return std::to_string(localTime->tm_mday) + "/" + std::to_string(1 + localTime->tm_mon) + "/" + std::to_string(1900 + localTime->tm_year);
 }
