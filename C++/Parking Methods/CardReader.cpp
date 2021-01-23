@@ -183,8 +183,21 @@ bool CardReader::CheckMembershipCard(std::string membershipID, std::vector<Card>
 	// Loop through user cards and if membershipID matches then return true.
 	// date needs to change to integer to compare.
 	for (int i = 0; i < card->size(); i++)
-		if (card->at(i).membershipID == membershipID && GetCurrentDate() != card->at(i).expiryDate)
+		if (card->at(i).membershipID == membershipID)
+		{
+			// If membershipType is visitor
+			if ((card->at(i).membershipType == "V" || card->at(i).membershipType == "v"))
+			{
+				//If current date is equal to expiry date
+				if (card->at(i).expiryDate == GetCurrentDate()) return true;
+				// return false if vistor membership expired
+				return false;
+			}
+
+			// if staff return true
 			return true;
+		}
+		
 
 	return false;
 }
