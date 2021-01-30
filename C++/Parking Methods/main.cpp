@@ -67,7 +67,7 @@ void RegisterUserCard(int* aLength, std::vector<struct Card>* aCards, IDReaders*
 	else aCards->at(*aLength).membershipID = std::to_string((int)func.TextToNumber(aCards->at(*aLength-1).membershipID) + 1);
 	aCards->at(*aLength).memberName = func.TextInput("Enter member name: "); // asks user to enter name
 	aCards->at(*aLength).membershipType = func.TextInput("Enter membership type ([V|istor][S|taff]): "); // asks user to enter V for visitor or S for staff
-	aCards->at(*aLength).expiryDate = func.TextInput("Enter expiry date (dd/Mm/yyyy, Ex: (31/9/2022): "); // asks user to enter expiry date.
+	aCards->at(*aLength).expiryDate = func.TextInput("Enter expiry date (dd/Mm/yyyy), Ex: (31/9/2022): "); // asks user to enter expiry date.
 
 	// Adds a barcode to new membership card. (Task 2)
 	idReaders->AddBarcode(aCards->at(*aLength).membershipID, aCards);

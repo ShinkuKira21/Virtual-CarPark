@@ -6,13 +6,15 @@
 #include "../../Library/Functions.h"
 #include "../Parking Methods/CarPark.h" // Car Park
 #include "../Parking Methods/CardReader.h" // Card Reader
+#include "../Parking Methods/IDReaders.h" // IDReaders
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 /*
 	ERROR HISTORY: 
 	
-	Empty
+	UTCardReader
+
 */
 
 
@@ -111,9 +113,9 @@ namespace UTCardReader
 				Assert::AreEqual(cards.membershipID, std::string("0"));
 			}
 
-			TEST_METHOD(UTCardStruct_VectorMembershipAlgorythm)
+			TEST_METHOD(UTCardStruct_VectorMembershipAlgorithm)
 			{
-				/* Tests Conducted: 4 | Information: No errors */
+				/* Tests Conducted: 4 | Information: One Error: SetupUserCards() Failed | TextToNumber() */
 
 				// Adds 6 user cards to the vecCards Vector
 				SetupUserCards(6);
@@ -178,6 +180,108 @@ namespace UTCardReader
 						cardInfo.push_back(vecCards.at(i));
 					
 				return cardInfo;
+			}
+	};
+}
+
+namespace UTIDReaders
+{
+	TEST_CLASS(UTIDReaders)
+	{
+		protected:
+			Functions func;
+
+			std::vector<struct Barcodes> barcodeDatabase;
+			std::vector<struct NumberPlates> numberPlateDatabase;
+
+		public:
+			TEST_METHOD(UTBarcodes_TestBarcodeIDLinker)
+			{
+				/* Tests Conducted: 1 | Information: No Errors */
+				LinkBarcodes(std::to_string(0));
+				Assert::IsTrue(SubmitBarcodeQuery("BC-0"));
+			}
+			
+			TEST_METHOD(UTCarNumberPlate_TestCarRegSensor)
+			{
+				/* Tests Conducted: 1 | Information: No Errors */
+				AddNumberPlate("T12 UIF", "Bentley Arnage", "Blue", "2,983");
+
+				AddNumberPlate("T252 MAP", "Mercedes CLK 2000 Elegance", "Silver", "32,983");
+
+				// Number Plate should Exist
+				Assert::IsTrue(SubmitCarRegQuery("T12 UIF"));
+
+				// Number Plate should fail
+				// The spacing of number plate
+				// makes the number plate illegal.
+				Assert::IsFalse(SubmitCarRegQuery("T252MAP"));
+
+
+				// Should fail, number plate isn't registered.
+				Assert::IsFalse(SubmitBarcodeQuery("CE35 7IO"));
+			}
+
+		private:
+			/* BARCODES SECTION */
+			void LinkBarcodes(std::string memID)
+			{
+				barcodeDatabase.push_back(Barcodes());
+
+				barcodeDatabase.at(barcodeDatabase.size() - 1).id = BarcodeIDAlgorithm();
+				barcodeDatabase.at(barcodeDatabase.size() - 1).membershipID =
+					memID;
+			}
+
+			std::string BarcodeIDAlgorithm()
+			{
+				// if size of barcodeDatabase is 0, set id to 'BC-0'
+				if (barcodeDatabase.size() - 1 == 0)
+					return "BC-0";
+
+				// add one from last registered ID
+				else return "BC-" + std::to_string((int)func.TextToNumber(barcodeDatabase.at(barcodeDatabase.size() - 2).id) + 1);
+			}
+
+			bool SubmitBarcodeQuery(std::string qryBarcodeID)
+			{
+				// if true then match has been found
+				bool bFoundBarcode = false;
+
+				// Find Query of Barcode
+				// switches boolean to true
+				for (int i = 0; i < barcodeDatabase.size(); i++)
+					if (barcodeDatabase.at(i).id == qryBarcodeID)
+						bFoundBarcode = !bFoundBarcode;
+
+				return bFoundBarcode;
+			}
+
+			/* Car Number Plate Sensor*/
+
+			void AddNumberPlate(std::string carReg, std::string carModel, std::string carColour, std::string carMilage)
+			{
+				// Adds a NumberPlate to vector object
+				numberPlateDatabase.push_back(NumberPlates());
+
+				// Car Registrations are already unique.
+				numberPlateDatabase.at(numberPlateDatabase.size() - 1).carRegistration = carReg;
+
+				//Asks user for make/model, colour and milage
+				numberPlateDatabase.at(numberPlateDatabase.size() - 1).carMakeModel = carModel;
+				numberPlateDatabase.at(numberPlateDatabase.size() - 1).carColour = carColour;
+				numberPlateDatabase.at(numberPlateDatabase.size() - 1).carMilage = carMilage;
+			}
+
+			bool SubmitCarRegQuery(std::string query)
+			{
+				bool bFoundCarReg = false;
+
+				for (int i = 0; i < numberPlateDatabase.size(); i++)
+					if (numberPlateDatabase.at(i).carRegistration == query)
+						bFoundCarReg = !bFoundCarReg;
+
+				return bFoundCarReg;
 			}
 	};
 }
