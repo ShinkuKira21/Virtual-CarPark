@@ -112,6 +112,18 @@ class Functions
         }
 
         // Date Logic
+        std::string GetStringDate()
+        {
+            // gets current time stamp
+            time_t t = time(0);
+
+            // gets local time based on machine configuration
+            tm* localTime = new tm(); localtime_s(localTime, &t);
+
+            // creates a date string "31/12/2000"
+            return std::to_string(localTime->tm_mday) + "/" + std::to_string(1 + localTime->tm_mon) + "/" + std::to_string(1900 + localTime->tm_year);
+        }
+
         int GetDay() 
         { 
             localTime = new tm();

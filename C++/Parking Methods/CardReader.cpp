@@ -121,7 +121,6 @@ void CardReader::VehicleDecrement(int mode)
 		DisplaySpaces();
 		DeallocateParkingSpace(TextInput("Enter Parking Space ID: "));
 	}
-
 	ClearSystem();
 
 	// opens and closes parking space
@@ -189,7 +188,7 @@ bool CardReader::CheckMembershipCard(std::string membershipID, std::vector<Card>
 			if ((card->at(i).membershipType == "V" || card->at(i).membershipType == "v"))
 			{
 				//If current date is equal to expiry date
-				if (card->at(i).expiryDate == GetCurrentDate()) return true;
+				if (card->at(i).expiryDate == GetStringDate()) return true;
 				// return false if vistor membership expired
 				return false;
 			}
@@ -197,7 +196,6 @@ bool CardReader::CheckMembershipCard(std::string membershipID, std::vector<Card>
 			// if staff return true
 			return true;
 		}
-		
 
 	return false;
 }
@@ -224,14 +222,3 @@ bool CardReader::ParkingMethod()
 	return true; //parking completed.
 }
 
-std::string CardReader::GetCurrentDate()
-{
-	// gets current time stamp
-	time_t t = time(0);
-
-	// gets local time based on machine configuration
-	tm* localTime = new tm(); localtime_s(localTime, &t);
-
-	// creates a date string "31/12/2000"
-	return std::to_string(localTime->tm_mday) + "/" + std::to_string(1 + localTime->tm_mon) + "/" + std::to_string(1900 + localTime->tm_year);
-}

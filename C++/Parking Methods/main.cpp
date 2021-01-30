@@ -15,6 +15,9 @@ void RegisterUserCard(int* lengthCards, std::vector<struct Card>* aCards, IDRead
 void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards);
 void LocationDetails(CarPark* cp, Sign* sign);
 
+/* Debugging / Demonstration */
+void DisplayMembershipIDs(std::vector<struct Card>* aCards);
+
 int main()
 {	
 	// Task 2
@@ -65,8 +68,13 @@ void RegisterUserCard(int* aLength, std::vector<struct Card>* aCards, IDReaders*
 	if (*aLength == 0) aCards->at(0).membershipID = '0';
 	// adds 1 to aCards membershipID attribute from last membershipID (will always be UNIQUE)
 	else aCards->at(*aLength).membershipID = std::to_string((int)func.TextToNumber(aCards->at(*aLength-1).membershipID) + 1);
+
 	aCards->at(*aLength).memberName = func.TextInput("Enter member name: "); // asks user to enter name
 	aCards->at(*aLength).membershipType = func.TextInput("Enter membership type ([V|istor][S|taff]): "); // asks user to enter V for visitor or S for staff
+
+	if (aCards->at(*aLength).membershipType == "S" || aCards->at(*aLength).membershipType == "s")
+		aCards->at(*aLength).department = func.TextInput("Enter department: ");
+
 	aCards->at(*aLength).expiryDate = func.TextInput("Enter expiry date (dd/Mm/yyyy), Ex: (31/9/2022): "); // asks user to enter expiry date.
 
 	// Adds a barcode to new membership card. (Task 2)
@@ -86,9 +94,20 @@ void SwipeCard(CarPark& cp, std::vector<struct Card>* aCards)
 	
 	func.ClearSystem();
 
+	DisplayMembershipIDs(aCards);
+
 	// asks user to type in the membership ID
-	memID = std::to_string((int)func.NumberInput("Enter Membership ID: "));
-	cReader = new CardReader(cp, 1, memID, aCards);
+	if (aCards->size() != 0)
+	{
+		memID = std::to_string((int)func.NumberInput("Enter Membership ID: "));
+		cReader = new CardReader(cp, 1, memID, aCards);
+	}
+	else
+	{
+		std::cout << func.ColorText("No Membership Cards Available\n\n", 37, 41);
+		func.PauseSystem();
+	}
+	
 }
 
 void LocationDetails(CarPark* cp, Sign* sign)
@@ -156,4 +175,22 @@ void LocationDetails(CarPark* cp, Sign* sign)
 	delete cr;
 
 	func.PauseSystem();
+}
+
+void DisplayMembershipIDs(std::vector<struct Card>* aCards)
+{
+	std::cout << "\t\t\tUser Interaction Menu | Demonstration Mode\n\n";
+	
+	for (int i = 0; i < aCards->size(); i++)
+	{
+		std::cout << "ID: " << aCards->at(i).membershipID << " | Type: " << aCards->at(i).membershipType << " | ";
+		
+		if (aCards->at(i).membershipType == "S" || aCards->at(i).membershipType == "s")
+			std::cout << "Department: " << aCards->at(i).department << " | ";
+
+		std::cout << "Name: " << aCards->at(i).memberName << " | Current Date: " << func.GetStringDate() << " | Expiry Date: " << aCards->at(i).expiryDate << std::endl;
+	}
+		
+
+	std::cout << std::endl;
 }

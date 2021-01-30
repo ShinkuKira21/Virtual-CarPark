@@ -37,8 +37,6 @@ class CardReader : private CarPark
 		bool UserInterface(std::string membershipID, std::vector<Card>* card);
 		bool CheckMembershipCard(std::string membershipID, std::vector<Card>* card);
 		bool ParkingMethod();
-
-		std::string GetCurrentDate();
 };
 
 // Card could link to the database (via the membershipID)
@@ -51,6 +49,5 @@ struct Card
 	std::string department; // if membershipType is Staff, the department will become required.
 
 	// Card Details
-	std::string typeOfCard; // Visitor Card or Staff Card
 	std::string expiryDate; // If expired, sign will tell user to enter the carpark, and report to office to renew their membership or drive around carpark and approach exit barrier.
 };
