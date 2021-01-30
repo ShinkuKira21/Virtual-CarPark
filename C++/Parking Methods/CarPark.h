@@ -34,7 +34,7 @@ class CarPark : public Functions, protected Vector
 		class CarPark* GetClass();
 
 		std::string AllocateParkingSpace(int parkingType);
-		void DeallocateParkingSpace(std::string parkingSpaceID);
+		bool DeallocateParkingSpace(std::string parkingSpaceID);
 
 		int GetAvailabilityStatus();
 		void CountAvailableSpaces();

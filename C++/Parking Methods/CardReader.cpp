@@ -115,25 +115,33 @@ void CardReader::VehicleIncrement(std::string membershipID, std::vector<Card>* c
 void CardReader::VehicleDecrement(int mode)
 {
 	// if default mode is detected ( two modes exit as the exit barriers, could open to let cars that needed to leave )
+	bool bStatus = false;
+
 	if (mode == 0)
 	{
 		// display spaces, and asks (system), which space is empty
 		DisplaySpaces();
-		DeallocateParkingSpace(TextInput("Enter Parking Space ID: "));
+		bStatus = DeallocateParkingSpace(TextInput("Enter Parking Space ID: "));
 	}
+
 	ClearSystem();
 
-	// opens and closes parking space
-	exitBarrier->SetState(true);
-	if (exitBarrier->GetState()) std::cout << "Exit Barrier Open: Please drive through!\n";
+	// if mode is == to -1 or bStatus is false
+	// then open exit barriers.
+	if (mode == -1 || bStatus)
+	{
+		// opens and closes parking space
+		exitBarrier->SetState(true);
+		if (exitBarrier->GetState()) std::cout << "Exit Barrier Open: Please drive through!\n";
 
-	PauseSystem();
-	ClearSystem();
+		PauseSystem();
+		ClearSystem();
 
-	entranceBarrier->SetState(false); // closes entrance barrier
-	if (!entranceBarrier->GetState()) std::cout << "Exit Barrier Closed\n";
+		entranceBarrier->SetState(false); // closes entrance barrier
+		if (!entranceBarrier->GetState()) std::cout << "Exit Barrier Closed\n";
 
-	PauseSystem();
+		PauseSystem();
+	}
 }
 
 // Enables set location of this class

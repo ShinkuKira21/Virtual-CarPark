@@ -92,14 +92,28 @@ std::string CarPark::AllocateParkingSpace(int parkingType)
 
 
 // deallocates parking spaces, for new cars to enter
-void CarPark::DeallocateParkingSpace(std::string argParkingSpaceID)
+bool CarPark::DeallocateParkingSpace(std::string argParkingSpaceID)
 {
 	for (int i = 0; i < carPark->totalSpaces; i++)
 		if (argParkingSpaceID == carPark->parkingSpaceID[i])
 		{
-			if (carPark->parkingSpaceStatus[i] != "Empty") carPark->parkingSpaceStatus[i] = "Empty";
-			else std::cout << "Parking space already empty!" << std::endl;
+			if (carPark->parkingSpaceStatus[i] != "Empty")
+			{
+				carPark->parkingSpaceStatus[i] = "Empty";
+				return true;
+			}
+			else
+			{
+				std::cout << ColorText("\nParking space already empty!", 37, 41) << std::endl;
+				PauseSystem();
+				return false;
+			}
 		}
+		
+	// if ID doesn't work
+	std::cout << ColorText("\nCar park space does not exist!\n\n", 37, 41);
+	PauseSystem();
+	return false;
 }
 
 // Checkout: UT-CarPark solution.
