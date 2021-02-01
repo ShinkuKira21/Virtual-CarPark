@@ -75,7 +75,7 @@ void RegisterUserCard(int* aLength, std::vector<struct Card>* aCards, IDReaders*
 	if (aCards->at(*aLength).membershipType == "S" || aCards->at(*aLength).membershipType == "s")
 		aCards->at(*aLength).department = func.TextInput("Enter department: ");
 
-	aCards->at(*aLength).expiryDate = func.TextInput("Enter expiry date (dd/Mm/yyyy), Ex: (31/9/2022): "); // asks user to enter expiry date.
+	aCards->at(*aLength).expiryDate = func.TextInput("Enter expiry date (Dd/Mm/yyyy), Ex: (3/9/2022): "); // asks user to enter expiry date.
 
 	// Adds a barcode to new membership card. (Task 2)
 	idReaders->AddBarcode(aCards->at(*aLength).membershipID, aCards);
