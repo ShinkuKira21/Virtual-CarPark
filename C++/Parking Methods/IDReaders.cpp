@@ -32,7 +32,7 @@ void IDReaders::AddBarcode(std::string membershipID, std::vector<struct Card>* c
 		barcodeDatabase.at(0).id = "BC-0";
 
 	// add one from last registered ID
-	else barcodeDatabase.at(barcodeDatabase.size() - 1).id = "BC-" + std::to_string((int)TextToNumber(barcodeDatabase.at(barcodeDatabase.size() - 2).id) + 1);
+	else barcodeDatabase.at(barcodeDatabase.size() - 1).id = "BC-" + std::to_string((int)barcodeDatabase.size() - 1);
 
 	barcodeDatabase.at(barcodeDatabase.size() - 1).membershipID = membershipID;
 }
